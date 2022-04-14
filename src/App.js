@@ -2,6 +2,8 @@ import './App.css';
 import Gun from 'gun/gun'
 import Sea from 'gun/sea'
 import {useEffect, useState} from 'react'
+import './components/Home';
+import Home from './components/Home';
 
 const gun = Gun({
   peers: ['http:localhost:8000/gun']
@@ -13,7 +15,7 @@ function App() {
   const [txt, setTxt] = useState()
 
   useEffect(() => {
-    gun.user().create('charlietest','password1234567890')
+    //gun.user().create('charlietest','password1234567890')
     gun.get('text').once((node) => {
       console.log(node)
       if(node == undefined) {
@@ -40,8 +42,9 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Collaborative Document With GunJS</h1>
-      <textarea value = {txt} onChange = {updateText}/>
+      <h1 className='bg-white'>Collaborative Document With GunJS</h1>
+      <textarea value = {txt} onChange = {updateText} className="bg-blue text-black border-2 border-blue-600"/>
+      <Home gun={gun}/>
     </div>
     
   );
