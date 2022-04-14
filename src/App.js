@@ -1,17 +1,19 @@
 import './App.css';
-import Gun from 'gun'
+import Gun from 'gun/gun'
+import Sea from 'gun/sea'
 import {useEffect, useState} from 'react'
 
 const gun = Gun({
   peers: ['http:localhost:8000/gun']
 })
 
+
 function App() {
 
   const [txt, setTxt] = useState()
 
   useEffect(() => {
-   
+    gun.user().create('charlietest','password1234567890')
     gun.get('text').once((node) => {
       console.log(node)
       if(node == undefined) {
