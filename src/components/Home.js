@@ -12,19 +12,33 @@ function Home(props) {
     const [txt, setTxt] = useState()
     const [username,setUsername] = useState()
     const [password,setPassword] = useState()
+    const [post, setPost] = useState([])
     
 
 
     useEffect(() => {
-        gun.get('text').once((node) => {
+        userG.get('post').once((node) => {
             console.log(node)
             if(node == undefined) {
               gun.get('text').put({text: "Write the text here"})
             } else {
-              console.log("Found Node")
-              setTxt(node.text)
+              console.log("Found Node, enter")
+              setTxt(node.content)
+              setPost([node.content])
             }
-          })
+        })
+        // userG.get('post').on((node) => {
+        //     console.log("Receiving Update")
+        //     console.log(node)
+        //     setTxt(node.text)
+        //     setPost([node.content])
+        //   })
+        // let posts = post
+        // userG.get('post').once(function(data, key) {
+        //     console.log('data in useeffect : ',data.content)
+        //     posts.push(data.content) 
+        // })
+        // setPost(posts) 
     }, [])
 
     const onUsernameChange = (event) => {
@@ -64,13 +78,14 @@ function Home(props) {
     }
 
     const getData = () => {
-        gun.user().get('charlie').map().on(function(data, key) {
-            console.log('data : ',data,key)
+        console.log('Post display :',post)
+        userG.get('post').once(function(data, key) {
+            console.log('dataPost : ',key, data)
         })
     }
 
     const putData = () => {
-        var user = gun.user().get('charlie').get('test 4').put({name: "Charlie test 4"});
+       userG.get('post').put({content: "Charlie test 0"});
     }
 
     return (
@@ -87,6 +102,11 @@ function Home(props) {
             <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={putData}>put</button>
         </form>
         {username} {password}
+        {post.map((item,key)=>{
+            return(
+                <div>{item}</div>
+            )
+        })}
     </div>)
 }
 
