@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react'
 import Gun from 'gun/gun'
 import Sea from 'gun/sea'
 import { useAlert } from 'react-alert'
+import _ from 'lodash';
 
 function Home(props) {
     const alert = useAlert()
@@ -12,21 +13,34 @@ function Home(props) {
     const [txt, setTxt] = useState()
     const [username,setUsername] = useState()
     const [password,setPassword] = useState()
+    const [message,setMessage] = useState()
     const [post, setPost] = useState([])
+
+    const [connected, setConnected] = useState(false)
     
 
 
     useEffect(() => {
-        userG.get('post').once((node) => {
-            console.log(node)
-            if(node == undefined) {
-              gun.get('text').put({text: "Write the text here"})
+        let post_tmp = post
+        userG.get('post').on((post,key) => {
+            console.log(post)
+            if(post == undefined) {
+              console.log('error')
             } else {
-              console.log("Found Node, enter")
-              setTxt(node.content)
-              setPost([node.content])
+              console.log("Found post, enter",post)
+              setPost([post.content])
             }
         })
+        
+        
+        if (userG.is) {
+            console.log('You are logged in');
+            setConnected(true)
+         } else {
+            console.log('You are not logged in');
+            setConnected(false)
+         }
+
         // userG.get('post').on((node) => {
         //     console.log("Receiving Update")
         //     console.log(node)
@@ -47,6 +61,10 @@ function Home(props) {
 
     const onPasswordChange = (event) => {
         setPassword(event.target.value)
+    }
+
+    const onMessageChange = (event) => {
+        setMessage(event.target.value)
     }
 
     const signup = () => {
@@ -72,6 +90,7 @@ function Home(props) {
                 }
                 else if (at.id) {
                     alert.success('User correctly connected')
+                    setConnected(true)
                 }
             })
         }
@@ -88,20 +107,32 @@ function Home(props) {
        userG.get('post').put({content: "Charlie test 0"});
     }
 
+    const sendMsg = () => {
+        userG.get('posts').get("test2").put({content: message});
+        
+    }
+
     return (
     <div>
-        Home section {txt} 
-        <form>
-            <label>Username : </label>
-            <input type="text" className='border-2 border-blue-500 mb-5' onChange={onUsernameChange}></input><br></br>
-            <label>Password : </label>
-            <input type="password" className='border-2 border-blue-500 mb-5' onChange={onPasswordChange}></input><br></br>
-            <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl' onClick={signup}>S'inscrire</button>
-            <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={signin}>Se connecter</button>
-            <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={getData}>get</button>
-            <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={putData}>put</button>
+        Home section
+        {connected ? ''
+        
+        : <form>
+        <label>Username : </label>
+        <input type="text" className='border-2 border-blue-500 mb-5' onChange={onUsernameChange}></input><br></br>
+        <label>Password : </label>
+        <input type="password" className='border-2 border-blue-500 mb-5' onChange={onPasswordChange}></input><br></br>
+        <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl' onClick={signup}>S'inscrire</button>
+        <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={signin}>Se connecter</button>
+        <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={getData}>get</button>
+        <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={putData}>put</button>
+    </form> }
+        <form className='mt-5'>
+            <label>Your message : </label>
+            <input className='border-2 border-blue-500 mb-5' type="text" onChange={onMessageChange} value={message}></input><br></br>
+            <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={sendMsg}>Send message</button>
         </form>
-        {username} {password}
+        
         {post.map((item,key)=>{
             return(
                 <div>{item}</div>
