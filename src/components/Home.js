@@ -21,14 +21,24 @@ class Home extends Component {
     componentDidMount() {
         let post_tmp = this.state.post;
         const self = this;
-        this.userG.get('posts').map().once((post,key) => {
+        this.userG.get('posts').map().on((post,key) => {
             console.log(post)
             if(post == undefined) {
               console.log('error')
             } else {
               console.log("Found post, enter",post.content,key)
               //setPost([post.content])
-              post_tmp.push(post.content)
+              const merged = _.merge({'key':key},_.pick(post, ['content', 'key']));
+              console.log('merged',merged)
+              const index = _.findIndex(post_tmp, (o)=>{ return o.key === key});
+              console.log(index)
+              if(index<0) {
+                post_tmp.push({'content':post.content,'key':key})
+              }
+              else {
+                post_tmp[index] = merged
+              }
+              
             }
             self.setState({post_tmp})
         }, [])
@@ -126,7 +136,7 @@ class Home extends Component {
         Your post !
         {this.state.connected ? ''
         
-        : <form>
+        :<div>
         <label>Username : </label>
         <input type="text" className='border-2 border-blue-500 mb-5' onChange={this.onUsernameChange}></input><br></br>
         <label>Password : </label>
@@ -135,20 +145,20 @@ class Home extends Component {
         <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.signin.bind(this)}>Se connecter</button>
         <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.getData}>get</button>
         <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.putData}>put</button>
-    </form> }
-        <form className='mt-5'>
+        </div> }
+        <div className='mt-5'>
             <label>Your message : </label>
             <input className='border-2 border-blue-500 mb-5' type="text" onChange={this.onMessageChange} value={this.state.message}></input><br></br>
             <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.sendMsg}>Send message</button>
-        </form>
+        </div>
         <div className='flex flex-row justify-center mt-5'>
             <div className='flex flex-col'>
         {this.state.post.map((item,key)=>{
             return(
-                <div>
+                <div key={key}>
                     <div className='bg-blue-500 text-white mt-5 shadow-lg rounded-t-lg p-5 shadow-indigo-400/50' style={{"width": '30vw'}}>
                         <div className='text-left'>
-                            {item}
+                            {item.content}
                         </div>
                     
                         <div className='flex flex-row mt-5 justify-between'>
