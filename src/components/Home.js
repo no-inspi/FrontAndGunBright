@@ -1,144 +1,183 @@
-import {useEffect, useState} from 'react'
+import React, {Component} from 'react';
 import Gun from 'gun/gun'
 import Sea from 'gun/sea'
 import { useAlert } from 'react-alert'
 import _ from 'lodash';
+import { FaBeer } from 'react-icons/fa';
+import {AiFillLike,AiFillDislike,AiOutlineComment} from 'react-icons/ai';
 
-function Home(props) {
-    const alert = useAlert()
+class Home extends Component {
+    //const alert = useAlert()
 
-    const gun = props.gun
-    const userG = gun.user().recall({sessionStorage: true})
+    constructor({gun}) {
+        super()
+        this.gun = gun;
+        this.userG = gun.user().recall({sessionStorage: true})
+        this.alert = useAlert
+        
+        this.state = { txt: '', username: '', password: '', message: '', post: [], connected: false, listBoolComment: []};
+      }
 
-    const [txt, setTxt] = useState()
-    const [username,setUsername] = useState()
-    const [password,setPassword] = useState()
-    const [message,setMessage] = useState()
-    const [post, setPost] = useState([])
-
-    const [connected, setConnected] = useState(false)
-    
-
-
-    useEffect(() => {
-        let post_tmp = post
-        userG.get('post').on((post,key) => {
+    componentDidMount() {
+        let post_tmp = this.state.post;
+        const self = this;
+        this.userG.get('posts').map().once((post,key) => {
             console.log(post)
             if(post == undefined) {
               console.log('error')
             } else {
-              console.log("Found post, enter",post)
-              setPost([post.content])
+              console.log("Found post, enter",post.content,key)
+              //setPost([post.content])
+              post_tmp.push(post.content)
             }
-        })
+            self.setState({post_tmp})
+        }, [])
         
-        
-        if (userG.is) {
+        if (this.userG.is) {
             console.log('You are logged in');
-            setConnected(true)
+            this.setState({connected: true})
          } else {
             console.log('You are not logged in');
-            setConnected(false)
+            this.setState({connected: false})
          }
-
-        // userG.get('post').on((node) => {
-        //     console.log("Receiving Update")
-        //     console.log(node)
-        //     setTxt(node.text)
-        //     setPost([node.content])
-        //   })
-        // let posts = post
-        // userG.get('post').once(function(data, key) {
-        //     console.log('data in useeffect : ',data.content)
-        //     posts.push(data.content) 
-        // })
-        // setPost(posts) 
-    }, [])
-
-    const onUsernameChange = (event) => {
-        setUsername(event.target.value)
     }
 
-    const onPasswordChange = (event) => {
-        setPassword(event.target.value)
+    onUsernameChange = (event) => {
+    //    this.state.username = event.target.value
+       this.setState({username: event.target.value});
     }
 
-    const onMessageChange = (event) => {
-        setMessage(event.target.value)
+    onPasswordChange = (event) => {
+        // this.state.password = event.target.value
+        this.setState({password: event.target.value});
     }
 
-    const signup = () => {
-        if (username && password) {
-            userG.create(username,password, function(ack) {
+     onMessageChange = (event) => {
+        // this.state.message = event.target.value
+        this.setState({message: event.target.value})
+    }
+
+     signup = () => {
+        if (this.state.username && this.state.password) {
+            this.userG.create(this.state.username,this.state.password, function(ack) {
                 console.log(ack)
                 if(ack.err) {
-                    alert.error(ack.err)
+                   // alert.error(ack.err)
                 }
                 else {
-                    alert.success('User correctly created ! Welcome Boubacar !')
+                   // alert.success('User correctly created ! Welcome Boubacar !')
                 }
             })
         }
     }
 
-    const signin = () => {
-        if (username && password) {
+    signin = (event) => {
+        const self = this
+        if (this.state.username && this.state.password) {
             //Id : charlietest password1234567890
-            userG.auth(username,password, function(at) {
+
+            this.userG.auth(this.state.username,this.state.password, function(at) {
                 if(at.err) {
-                    alert.error(at.err)
+                   // alert.error(at.err)
                 }
                 else if (at.id) {
-                    alert.success('User correctly connected')
-                    setConnected(true)
+                   // alert.success('User correctly connected')
+                    // this.state.connected = true
+                    self.setState({connected: true})
+                    self.forceUpdate();
+                    self.componentDidMount()
                 }
             })
         }
     }
 
-    const getData = () => {
-        console.log('Post display :',post)
-        userG.get('post').once(function(data, key) {
+    getData = () => {
+        console.log('Post display :',this.state.post)
+        this.userG.get('post').once(function(data, key) {
             console.log('dataPost : ',key, data)
         })
     }
 
-    const putData = () => {
-       userG.get('post').put({content: "Charlie test 0"});
+    putData = () => {
+        this.userG.get('post').put({content: "Charlie test 0"});
     }
 
-    const sendMsg = () => {
-        userG.get('posts').get("test2").put({content: message});
-        
+    sendMsg = () => {
+        this.userG.get('posts').get("test2").put({content: this.state.message});
     }
 
-    return (
+    sendLike = () => {
+        console.log('like')
+    }
+
+    sendDislike = () => {
+        console.log('Dislike')
+    }
+
+    displayCom = (index) => {
+        let table_tmp = this.state.listBoolComment
+        table_tmp[index] = !table_tmp[index]
+        this.setState({listBoolComment: table_tmp})
+    }
+
+    render() {
+        return (
     <div>
-        Home section
-        {connected ? ''
+        Your post !
+        {this.state.connected ? ''
         
         : <form>
         <label>Username : </label>
-        <input type="text" className='border-2 border-blue-500 mb-5' onChange={onUsernameChange}></input><br></br>
+        <input type="text" className='border-2 border-blue-500 mb-5' onChange={this.onUsernameChange}></input><br></br>
         <label>Password : </label>
-        <input type="password" className='border-2 border-blue-500 mb-5' onChange={onPasswordChange}></input><br></br>
-        <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl' onClick={signup}>S'inscrire</button>
-        <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={signin}>Se connecter</button>
-        <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={getData}>get</button>
-        <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={putData}>put</button>
+        <input type="password" className='border-2 border-blue-500 mb-5' onChange={this.onPasswordChange}></input><br></br>
+        <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl' onClick={this.signup}>S'inscrire</button>
+        <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.signin.bind(this)}>Se connecter</button>
+        <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.getData}>get</button>
+        <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.putData}>put</button>
     </form> }
         <form className='mt-5'>
             <label>Your message : </label>
-            <input className='border-2 border-blue-500 mb-5' type="text" onChange={onMessageChange} value={message}></input><br></br>
-            <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={sendMsg}>Send message</button>
+            <input className='border-2 border-blue-500 mb-5' type="text" onChange={this.onMessageChange} value={this.state.message}></input><br></br>
+            <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.sendMsg}>Send message</button>
         </form>
-        
-        {post.map((item,key)=>{
+        <div className='flex flex-row justify-center mt-5'>
+            <div className='flex flex-col'>
+        {this.state.post.map((item,key)=>{
             return(
-                <div>{item}</div>
+                <div>
+                    <div className='bg-blue-500 text-white mt-5 shadow-lg rounded-t-lg p-5 shadow-indigo-400/50' style={{"width": '30vw'}}>
+                        <div className='text-left'>
+                            {item}
+                        </div>
+                    
+                        <div className='flex flex-row mt-5 justify-between'>
+                            <div className='flex flex-row'>
+                                <AiFillLike className='text-white text-2xl mr-2 cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300' onClick={this.sendLike}/> 
+                                <AiFillDislike className='text-red-500 text-2xl cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300' onClick={this.sendDislike}/>
+                            </div>
+                            <div>
+                                <AiOutlineComment className='text-white text-2xl cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300' onClick={() => this.displayCom(key)} />
+                            </div>
+                        </div>
+                    </div>
+                    {this.state.listBoolComment[key] ?
+                    <div className='bg-blue-300 rounded-b-lg'>
+                        <div>
+                            <span className='text-white'>Your Comment : </span>
+                            <input type="text" placeholder='Enter your comment' className='border-2 mr-2 border-blue-600/100 rounded fw-500 p-1 ps-3 my-2 ms-2 h-50 focus:border-white-300/100'></input>
+                            <button className='bg-indigo-500 text-white p-2 rounded-full'>Send</button>
+                        </div>
+                    </div>
+                    : ''}
+                </div>
+                
             )
         })}
-    </div>)
+            </div>
+        </div>
+        
+    </div>)}
 }
 
 export default Home;
