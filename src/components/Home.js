@@ -114,6 +114,7 @@ class Home extends Component {
 
     sendMsg = () => {
         this.userG.get('posts').get("test2").put({content: this.state.message});
+        this.setState({message:""})
     }
 
     sendLike = () => {
@@ -133,30 +134,83 @@ class Home extends Component {
     render() {
         return (
     <div>
-        Your post !
-        {this.state.connected ? ''
+        
+        {/* {this.state.connected ? ''
         
         :<div>
         <label>Username : </label>
-        <input type="text" className='border-2 border-blue-500 mb-5' onChange={this.onUsernameChange}></input><br></br>
+        <input type="text" className='border-2 border-blue-900 mb-5' onChange={this.onUsernameChange}></input><br></br>
         <label>Password : </label>
-        <input type="password" className='border-2 border-blue-500 mb-5' onChange={this.onPasswordChange}></input><br></br>
-        <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl' onClick={this.signup}>S'inscrire</button>
-        <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.signin.bind(this)}>Se connecter</button>
-        <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.getData}>get</button>
-        <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.putData}>put</button>
-        </div> }
-        <div className='mt-5'>
-            <label>Your message : </label>
-            <input className='border-2 border-blue-500 mb-5' type="text" onChange={this.onMessageChange} value={this.state.message}></input><br></br>
-            <button type="button" className='bg-emerald-400 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.sendMsg}>Send message</button>
+        <input type="password" className='border-2 border-blue-900 mb-5' onChange={this.onPasswordChange}></input><br></br>
+        <button type="button" className='bg-emerald-700 border-2 border-white-500 p-3 rounded-xl' onClick={this.signup}>S'inscrire</button>
+        <button type="button" className='bg-emerald-700 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.signin.bind(this)}>Se connecter</button>
+        <button type="button" className='bg-emerald-700 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.getData}>get</button>
+        <button type="button" className='bg-emerald-700 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.putData}>put</button>
+        </div> } */}
+        {this.state.connected ? ''
+        
+        :<div className='fixed mt-5 right-24 flex flex-col bg-blue-900 p-5 rounded shadow-lg shadow-indigo-400/50 text-white' style={{"width": '20vw'}}>
+        <h1 className='uppercase tracking-widest mt-2 mb-2'><b>Sign in</b></h1>
+            <label>Username </label>
+            <div className='flex flex-row justify-center'>
+                <input type="text" placeholder='Your username' className='border-2 mt-2 border-slate-300 text-black focus:border-emerald-400 focus:ring-emerald-400 focus:ring-1 focus:outline-none rounded p-2 caret-blue-900 placeholder:italic placeholder:text-slate-400 mb-5 ' onChange={this.onUsernameChange}></input>
+            </div>
+            <label>Password </label>
+            <div className='flex flex-row justify-center'>
+                <input type="password" placeholder='Your password' className='border-2 mt-2 border-slate-300 text-black focus:border-emerald-400 focus:ring-emerald-400 focus:ring-1 focus:outline-none rounded p-2 caret-blue-900 placeholder:italic placeholder:text-slate-400 mb-5' onChange={this.onPasswordChange}></input><br></br>
+            </div>
+            <div className='flex flex-row justify-center'>
+                <button type="button" className='bg-emerald-700 border-2 text-white border-white-500 p-3 rounded-xl w-2/4' onClick={this.signin.bind(this)}>Sign in</button>
+            </div>
+            <h1 className='uppercase tracking-widest mt-8 mb-2'><b>Sign up</b></h1>
+            <label>Username </label>
+            <div className='flex flex-row justify-center'>
+                <input type="text" placeholder='Your username ...' className='border-2 mt-2 border-slate-300 text-black focus:border-emerald-400 focus:ring-emerald-400 focus:ring-1 focus:outline-none rounded p-2 caret-blue-900 placeholder:italic placeholder:text-slate-400 mb-5 ' ></input>
+            </div>
+            <label>Password </label>
+            <div className='flex flex-row justify-center'>
+                <input type="password" placeholder='Your password ...' className='border-2 mt-2 border-slate-300 text-black focus:border-emerald-400 focus:ring-emerald-400 focus:ring-1 focus:outline-none rounded p-2 caret-blue-900 placeholder:italic placeholder:text-slate-400 mb-5 ' ></input>
+            </div>
+            <div className='flex flex-row justify-center'>
+                <div className='flex flex-col'>
+                    <label>Last Name </label>
+                    <div className='flex flex-row justify-center'>
+                        <input type="password" placeholder='Your last name ...' className='border-2 mt-2 border-slate-300 text-black focus:border-emerald-400 focus:ring-emerald-400 focus:ring-1 focus:outline-none rounded p-2 caret-blue-900 placeholder:italic placeholder:text-slate-400 mb-5 ' style={{"width":"100%"}}></input>
+                    </div>
+                </div>
+                <div className='flex flex-col'>
+                    <label>First Name </label>
+                    <div className='flex flex-row justify-center'>
+                        <input type="password" placeholder='Your firt name ...' className='border-2 mt-2 ml-3 border-slate-300 text-black focus:border-emerald-400 focus:ring-emerald-400 focus:ring-1 focus:outline-none rounded p-2 caret-blue-900 placeholder:italic placeholder:text-slate-400 mb-5 ' style={{"width":"100%"}}></input>
+                    </div>
+                </div>
+            </div>
+
+            <div className='flex flex-row justify-center'>
+                <button type="button" className='bg-emerald-700 border-2 text-white border-white-500 p-3 rounded-xl w-2/4' onClick={this.signup}>Sign up</button>
+            </div>
+            
+        </div>
+        }
+        <div className='flex flex-row justify-center mt-5'>
+            <div className='bg-blue-900 text-white mt-5 shadow-lg rounded p-5 shadow-indigo-400/50' style={{"width": '30vw'}}>
+                <div className='flex flex-col justify-center'>
+                    <h1 className='uppercase tracking-widest'> <b>Your post !</b></h1>
+                    <div className='flex flex-row justify-center'>
+                    <textarea className='border-2 border-slate-300 focus:border-emerald-400 focus:ring-emerald-400 focus:ring-1 focus:outline-none mb-5 rounded text-black mt-2 p-2 caret-blue-900 placeholder:italic placeholder:text-slate-400' placeholder='Send your message ...' rows={5} cols={5} onChange={this.onMessageChange} value={this.state.message} style={{"height":"100px","width":"100%"}}/><br></br>
+                    </div>
+                    <div className='flex flex-row justify-center'>
+                        <button type="button" className='bg-emerald-700 border-2 border-white-500 p-3 rounded-xl ml-5 w-1/2' onClick={this.sendMsg}>Send message</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div className='flex flex-row justify-center mt-5'>
             <div className='flex flex-col'>
         {this.state.post.map((item,key)=>{
             return(
                 <div key={key}>
-                    <div className='bg-blue-500 text-white mt-5 shadow-lg rounded-t-lg p-5 shadow-indigo-400/50' style={{"width": '30vw'}}>
+                    <div className='bg-blue-900 text-white mt-5 shadow-lg rounded-t-lg p-5 shadow-indigo-400/50' style={{"width": '30vw'}}>
                         <div className='text-left'>
                             {item.content}
                         </div>
