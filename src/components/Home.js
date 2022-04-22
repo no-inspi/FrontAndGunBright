@@ -134,19 +134,6 @@ class Home extends Component {
     render() {
         return (
     <div>
-        
-        {/* {this.state.connected ? ''
-        
-        :<div>
-        <label>Username : </label>
-        <input type="text" className='border-2 border-blue-900 mb-5' onChange={this.onUsernameChange}></input><br></br>
-        <label>Password : </label>
-        <input type="password" className='border-2 border-blue-900 mb-5' onChange={this.onPasswordChange}></input><br></br>
-        <button type="button" className='bg-emerald-700 border-2 border-white-500 p-3 rounded-xl' onClick={this.signup}>S'inscrire</button>
-        <button type="button" className='bg-emerald-700 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.signin.bind(this)}>Se connecter</button>
-        <button type="button" className='bg-emerald-700 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.getData}>get</button>
-        <button type="button" className='bg-emerald-700 border-2 border-white-500 p-3 rounded-xl ml-5' onClick={this.putData}>put</button>
-        </div> } */}
         {this.state.connected ? ''
         
         :<div className='fixed mt-5 right-24 flex flex-col bg-blue-900 p-5 rounded shadow-lg shadow-indigo-400/50 text-white' style={{"width": '20vw'}}>
