@@ -22,16 +22,13 @@ class Home extends Component {
         let post_tmp = this.state.post;
         const self = this;
         this.userG.get('posts').map().on((post,key) => {
-            console.log(post)
             if(post == undefined) {
               console.log('error')
             } else {
               console.log("Found post, enter",post.content,key)
               //setPost([post.content])
               const merged = _.merge({'key':key},_.pick(post, ['content', 'key']));
-              console.log('merged',merged)
               const index = _.findIndex(post_tmp, (o)=>{ return o.key === key});
-              console.log(index)
               if(index<0) {
                 post_tmp.push({'content':post.content,'key':key})
               }
@@ -113,7 +110,8 @@ class Home extends Component {
     }
 
     sendMsg = () => {
-        this.userG.get('posts').get("test2").put({content: this.state.message});
+        // this.userG.get('posts').get("test2").put({content: this.state.message});
+        
         this.setState({message:""})
     }
 
@@ -125,15 +123,65 @@ class Home extends Component {
         console.log('Dislike')
     }
 
-    displayCom = (index) => {
+    displayComSection = (index) => {
         let table_tmp = this.state.listBoolComment
         table_tmp[index] = !table_tmp[index]
         this.setState({listBoolComment: table_tmp})
     }
 
+    PutInitialData = () => {
+        var markInfo = {
+            name: "Mark",
+            username: "@amark"
+        };
+
+        var jesseInfo = {
+            name: "Jesse",
+            username: "@PsychoLlama"
+        };
+
+        var mark = this.gun.get('users').get(markInfo.username).put(markInfo);
+        var jesse = this.gun.get('users').get(jesseInfo.username).put(jesseInfo);
+
+        var lipsum = {
+            title: "Lorem ipsum dolor",
+            slug: "lorem-ipsum-dolor",
+            content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        };
+
+        var lipsumjesse = {
+            title: "Lorem ipsum dolor jesse",
+            slug: "lorem-ipsum-dolor-jesse",
+            content: "Jesse Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        };
+           
+        var lipsumPost = this.gun.get('posts').get(lipsum.slug).put(lipsum);
+        var lipsumPostJesse = this.gun.get('posts').get(lipsumjesse.slug).put(lipsumjesse);
+        
+        lipsumPost.get('author').put(mark).get('posts').set(lipsumPost);
+        lipsumPostJesse.get('author').put(jesse).get('posts').set(lipsumPostJesse);
+
+        console.log('initial data completed')
+
+    }
+
+    GetInitialData = () => {
+        console.log('getdata')
+        var mark = this.gun.get('users').get("@PsychoLlama");
+        var post = this.gun.get('posts').get("lorem-ipsum-dolor-jesse")
+        console.log(mark)
+        post.get('author').once(function(data, key) {
+            console.log('User : ',key, data)
+        })
+    }
+
     render() {
         return (
     <div>
+
+        <button className='bg-red-700 border-2 text-white border-white-500 p-3 rounded-xl w-2/4' onClick={this.PutInitialData}>Put initial data</button>
+        <br></br>
+        <button className='bg-red-700 border-2 text-white border-white-500 p-3 rounded-xl w-2/4' onClick={this.GetInitialData}>GetData</button>
         {this.state.connected ? ''
         
         :<div className='fixed mt-5 right-24 flex flex-col bg-blue-900 p-5 rounded shadow-lg shadow-indigo-400/50 text-white' style={{"width": '20vw'}}>
@@ -208,7 +256,7 @@ class Home extends Component {
                                 <AiFillDislike className='text-red-500 text-2xl cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300' onClick={this.sendDislike}/>
                             </div>
                             <div>
-                                <AiOutlineComment className='text-white text-2xl cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300' onClick={() => this.displayCom(key)} />
+                                <AiOutlineComment className='text-white text-2xl cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300' onClick={() => this.displayComSection(key)} />
                             </div>
                         </div>
                     </div>
