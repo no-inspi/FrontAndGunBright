@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+
+.navigation {
+    position: fixed;
+    height: 100vh;
+    width: 22%;
+    border-color: #e7edf2;
+    color: #838daa;
+    background-color: #f8f9fb;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.content__page {
+    margin-left: 22%;
+}
+
+.navigation::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+	border-radius: 10px;
+	background: transparent;
+}
+
+.navigation::-webkit-scrollbar
+{
+	width: 5px;
+}
+
+.navigation::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.2);
+	background-color: rgba(0,0,0,.2);;
+}
+
+.navigation__title {
+    padding: 50px;
+    background-color: #383a45;
+    background-image: linear-gradient(135deg, #4f5261 0%, #383a45 50%);
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.navigation__title__content {
+    margin: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.navigation__title__secondary {
+    font-size: 0.9em;
+}
+
+/* links */
+.navigation__links {
+    padding: 50px;
+}
+
+.category__title {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.category__card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    transition: color 0.5s ease,transform 0.5s ease;
+}
+
+.category__card span {
+    padding: 5px 0px;
+}
+
+.category__card div {
+    font-size: 1.5em;
+}
+
+.category__card:hover {
+    color: #4caf50;
+    transform: scale(110%);    
+}
+
+
+
+.navigation__card__login {
+    background: #fff;
+    padding: 2.25rem 2rem;
+    margin-top: 1.5rem;
+    border-radius: 12px;
+    position: relative;
+    margin: 1rem auto -75px;
+    box-shadow: 0 15px 100px rgb(58 46 68 / 6%);
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #4f515b;
+}
+
+.navigation__card__login::before {
+    content: "";
+    background: #fff;
+    width: 90%;
+    height: 95%;
+    border-radius: 12px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: -12px;
+    z-index: -1;
+    box-shadow: 0 15px 100px rgb(58 46 68 / 6%);
+}
+
+.navigation__card__login h4 {
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 0.75rem;
+}
+
+@media screen and (min-width: 1799.98px) {
+    .navigation__card__login {
+        max-width: 280px;
+    }
+    
+}
