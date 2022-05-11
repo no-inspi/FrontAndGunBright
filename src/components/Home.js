@@ -111,7 +111,7 @@ class Home extends Component {
         }
     }
 
-    signin = (event) => {
+    signin = () => {
         const self = this
         if (this.state.username && this.state.password) {
             //Id : charlietest password1234567890
@@ -154,8 +154,15 @@ class Home extends Component {
         };
         var contentToInsertPost = this.gun.get('posts').get(contentToInsert.slug).put(contentToInsert);
         contentToInsertPost.get('author').put(user).get('posts').set(contentToInsertPost);
+        this.setState({message: ""})
         console.log('done send msg')
-        self.componentDidMount()
+        let listColorTmp = []
+        for (var i = 0; i < this.state.post.length+1; i++) {
+            let int_tamp = Math.floor(Math.random() * 3)
+            listColorTmp.push(this.colorStr[int_tamp])
+            console.log(listColorTmp)
+        }
+        this.setState({ listColorStr: listColorTmp })
     }
 
     sendLike = () => {
@@ -212,8 +219,7 @@ class Home extends Component {
         console.log('getdata')
         var mark = this.gun.get('users').get("@PsychoLlama");
         var post = this.gun.get('posts').get("lorem-ipsum-dolor-jesse")
-        console.log(mark)
-        this.gun.get('posts').once(function (data, key) {
+        post.get('author').once(function (data, key) {
             console.log('User : ', key, data)
         })
     }
@@ -248,7 +254,9 @@ class Home extends Component {
                                             '& .MuiInputBase-root': {
                                                 borderRadius: "150px"
                                             }
-                                        }} />
+                                        }} 
+                                        onChange={this.onUsernameChange}
+                                        />
                                         <TextField id="outlined-basic" size="small" label="Password" variant="outlined" color="success" type="password" sx={{
                                             width: 'auto',
                                             maxWidth: 200,
@@ -259,7 +267,9 @@ class Home extends Component {
                                             '& .MuiInputBase-root': {
                                                 borderRadius: "150px"
                                             }
-                                        }} />
+                                        }} 
+                                        onChange={this.onPasswordChange}
+                                        />
                                         <Button variant="contained" sx={{
                                             color: 'white',
                                             width: 150,
@@ -267,7 +277,10 @@ class Home extends Component {
                                             backgroundColor: '#20B95F',
                                             mt: '0.75rem',
                                             borderRadius: 50,
-                                        }}>
+                                            
+                                        }}
+                                        onClick={this.signin}
+                                        >
                                             Log In
                                         </Button><br></br>
                                         <Button variant="text" sx={{ mt: "0.50rem", color: "#1d8cf8", letterSpacing: "0.5px" }}
