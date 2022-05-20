@@ -64,7 +64,8 @@
 .category__title {
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-weight: 600;
+    font-weight: 300;
+    font-size: 1em;
 }
 
 .category__card {
@@ -74,6 +75,7 @@
     flex-direction: column;
     cursor: pointer;
     transition: color 0.5s ease,transform 0.5s ease;
+    position: relative;
 }
 
 .category__card span {
@@ -82,6 +84,20 @@
 
 .category__card div {
     font-size: 1.5em;
+}
+
+.category__card .icon__fire {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    top: 0;
+    right: 0;
+}
+
+.category__card .icon__fire span {
+    font-size: 0.5em;
+    color: #DB2222;
+    font-weight: bold;
 }
 
 .category__card:hover {
@@ -131,4 +147,21 @@
         max-width: 280px;
     }
     
+}
+
+/* stats */
+.navigation__card__stats {
+}
+
+.navigation__card__stats h3 {
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.navigation__card__stats div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
 }
