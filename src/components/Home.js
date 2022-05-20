@@ -35,10 +35,18 @@ class Home extends Component {
     constructor({ gun,alert }) {
         super()
         this.gun = gun;
-        this.userG = gun.user().recall({ sessionStorage: true })
+        this.userG = gun.user().recall({ sessionStorage: false })
         this.colorStr = ['danger', 'success', 'info']
         this.alert = alert;
         this.state = { txt: '', username: '', password: '', confirmPassword: '', message: '', post: [], connected: false, listBoolComment: [], listColorStr: [], SignIn: true, usernameTamp: "" };
+        console.log(this.gun.get('users').map());
+
+        gun.get('users').on(function(data, key){
+            console.log("Data");
+            console.log(data)
+            console.log("key")
+            console.log(key)
+        })
     }
 
     componentDidMount() {
@@ -501,7 +509,9 @@ class Home extends Component {
                                             <div className="timeline__icon__space"><FaEthereum /></div>
                                         </div>
                                         <div className="timeline-body">
-                                            <h4 className="timeline-title"><span className="badge">Publié le : 10/05/2022</span></h4>
+                                            <h4 className="timeline-title">
+                                                <span className="badge">Publié le : 10/05/2022</span>
+                                            </h4>
                                             <p>{item.content}</p>
                                             <p className="timeline-subtitle">{item.author}</p>
                                             <div className="timeline-icons-bar">

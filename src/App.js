@@ -15,7 +15,7 @@ function App() {
   const alert = useAlert();
   return (
     <div className="App">
-      <Home gun={gun} alert={alert}/>
+      <Home id="mainHome" gun={gun} alert={alert}/>
     </div>
     
   );
