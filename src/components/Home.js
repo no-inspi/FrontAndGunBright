@@ -47,6 +47,8 @@ class Home extends Component {
             console.log("key")
             console.log(key)
         })
+
+        console.log("userG:", this.userG)
     }
 
     componentDidMount() {
