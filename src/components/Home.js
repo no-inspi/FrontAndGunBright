@@ -192,8 +192,10 @@ class Home extends Component {
                     self.alert.success('User correctly connected')
                     // this.state.connected = true
                     // console.log("test in sign in ",usernameTampSignIn)
-                    self.
-                    self.setState({ connected: true,usernameTamp: usernameTampSignIn, userGunObject : self.gun.get('users').get(usernameTampSignIn)})
+                    console.log("SignIn UserGunObject")
+                    var gunUserObject = self.gun.get('users').get(usernameTampSignIn)
+                    console.log(gunUserObject)
+                    self.setState({ connected: true,usernameTamp: usernameTampSignIn, userGunObject : gunUserObject})
                     self.forceUpdate();
                     self.componentDidMount()
                 }
@@ -233,12 +235,9 @@ class Home extends Component {
     }
 
     sendLike = (gunKey) => {
-        // console.log('like')
-        // console.log(gunKey)
-        var like = {
-            name: "Mark",
-            username: "@amark"
-        };
+        var post = this.gun.get('post').get(gunKey)
+        post.get('likes').set(this.state.userGunObject)
+        console.log(post.get('likes').map())
     }
 
     sendDislike = () => {
