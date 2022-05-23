@@ -39,7 +39,17 @@ class Home extends Component {
         this.userG = gun.user().recall({ sessionStorage: false })
         this.colorStr = ['danger', 'success', 'info']
         this.alert = alert;
-        this.state = { txt: '', username: '', password: '', confirmPassword: '', message: '', post: [], connected: false, listBoolComment: [], listColorStr: [], SignIn: true, usernameTamp: "" };
+        this.state = { 
+            txt: '', username: '', 
+            password: '', confirmPassword: '', 
+            message: '', post: [], 
+            connected: false, 
+            listBoolComment: [], 
+            listColorStr: [], 
+            SignIn: true, 
+            usernameTamp: "",
+            userGunObject : "",  
+        };
         // console.log(this.gun.get('users').map());
 
         console.log("Home gun : ")
@@ -182,7 +192,8 @@ class Home extends Component {
                     self.alert.success('User correctly connected')
                     // this.state.connected = true
                     // console.log("test in sign in ",usernameTampSignIn)
-                    self.setState({ connected: true,usernameTamp: usernameTampSignIn })
+                    self.
+                    self.setState({ connected: true,usernameTamp: usernameTampSignIn, userGunObject : self.gun.get('users').get(usernameTampSignIn)})
                     self.forceUpdate();
                     self.componentDidMount()
                 }
