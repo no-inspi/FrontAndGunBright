@@ -3,6 +3,7 @@ import Gun from 'gun/gun'
 import Sea from 'gun/sea'
 import { useAlert } from 'react-alert'
 import _ from 'lodash';
+import TestComponent from './TestComponent.js'
 
 // icons
 import { FaBeer, FaEthereum, FaBitcoin,FaLeaf,FaFire } from 'react-icons/fa';
@@ -39,16 +40,15 @@ class Home extends Component {
         this.colorStr = ['danger', 'success', 'info']
         this.alert = alert;
         this.state = { txt: '', username: '', password: '', confirmPassword: '', message: '', post: [], connected: false, listBoolComment: [], listColorStr: [], SignIn: true, usernameTamp: "" };
-        console.log(this.gun.get('users').map());
+        // console.log(this.gun.get('users').map());
 
+        console.log("Home gun : ")
         gun.get('users').on(function(data, key){
-            console.log("Data");
             console.log(data)
-            console.log("key")
-            console.log(key)
         })
 
-        console.log("userG:", this.userG)
+
+        // console.log("userG:", this.userG)
     }
 
     componentDidMount() {
@@ -56,36 +56,36 @@ class Home extends Component {
         const self = this;
         this.gun.get('posts').map().on((post, key) => {
             if (post == undefined) {
-                console.log('error')
+                // console.log('error')
             } else {
-                console.log("Found post, enter", post.content, key)
+                // console.log("Found post, enter", post.content, key)
                 //setPost([post.content])
 
                 // get the author
                 var author = "";
                 var postTmp = self.gun.get('posts').get(key).get('author', function(ack) {
                     if(ack.err){
-                        console.log(ack.err)
+                        // console.log(ack.err)
                       } else
                       if(!ack.put){
                         // not found
-                        console.log('not found')
+                        // console.log('not found')
                       } else {
                         // data!
-                        console.log("founded: ",ack.put.username)
+                        // console.log("founded: ",ack.put.username)
                         author = ack.put.username
                       }
                 });
 
 
                 
-                console.log("postpm: ",postTmp);
+                // console.log("postpm: ",postTmp);
                 // postTmp.get('author').once(function (data, keyy) {
                 //     console.log('Author : ', keyy, data)
                 //     var author = data.username;
                 // },[])
                 const merged = _.merge({ 'key': key }, _.pick(post, ['content', 'key']), {'author': author});
-                console.log("merged:",merged)
+                // console.log("merged:",merged)
                 const index = _.findIndex(post_tmp, (o) => { return o.key === key });
                 if (index < 0) {
                     post_tmp.push({ 'content': post.content, 'key': key, 'author': author })
@@ -142,7 +142,7 @@ class Home extends Component {
         const self = this;
 
         if (this.state.username && this.state.password && this.state.confirmPassword) {
-            console.log("singup test:",this.state.username,this.state.password,this.state.confirmPassword)
+            // console.log("singup test:",this.state.username,this.state.password,this.state.confirmPassword)
             if (passwordSignup!=confirmPasswordSignup) {
                 this.alert.error('Passwords are not the same, please retry')
             } else {
@@ -153,7 +153,7 @@ class Home extends Component {
                 var user = this.gun.get('users').get(userInfo.username).put(userInfo);
 
                 this.userG.create(usernameSignup, passwordSignup, function (ack) {
-                    console.log(ack)
+                    // console.log(ack)
                     if (ack.err) {
                         self.alert.error(ack.err)
                     }
@@ -181,7 +181,7 @@ class Home extends Component {
                 else if (at.id) {
                     self.alert.success('User correctly connected')
                     // this.state.connected = true
-                    console.log("test in sign in ",usernameTampSignIn)
+                    // console.log("test in sign in ",usernameTampSignIn)
                     self.setState({ connected: true,usernameTamp: usernameTampSignIn })
                     self.forceUpdate();
                     self.componentDidMount()
@@ -191,9 +191,9 @@ class Home extends Component {
     }
 
     getData = () => {
-        console.log('Post display :', this.state.post)
+        // console.log('Post display :', this.state.post)
         this.userG.get('post').once(function (data, key) {
-            console.log('dataPost : ', key, data)
+            // console.log('dataPost : ', key, data)
         })
     }
 
@@ -222,8 +222,8 @@ class Home extends Component {
     }
 
     sendLike = (gunKey) => {
-        console.log('like')
-        console.log(gunKey)
+        // console.log('like')
+        // console.log(gunKey)
         var like = {
             name: "Mark",
             username: "@amark"
@@ -231,7 +231,7 @@ class Home extends Component {
     }
 
     sendDislike = () => {
-        console.log('Dislike')
+        // console.log('Dislike')
     }
 
     displayComSection = (index) => {
@@ -272,18 +272,18 @@ class Home extends Component {
         lipsumPost.get('author').put(mark).get('posts').set(lipsumPost);
         lipsumPostJesse.get('author').put(jesse).get('posts').set(lipsumPostJesse);
 
-        console.log('initial data completed')
+        // console.log('initial data completed')
 
     }
 
     GetInitialData = () => {
-        console.log('getdata')
+        // console.log('getdata')
         var mark = this.gun.get('users').get("@PsychoLlama");
         var post = this.gun.get('posts').get("lorem-ipsum-dolor-jesse")
-        post.get('author').once(function (data, key) {
-            console.log('User : ', key, data)
-        })
-        console.log("username display : ",this.state.usernameTamp)
+        // post.get('author').once(function (data, key) {
+        //     // console.log('User : ', key, data)
+        // })
+        // console.log("username display : ",this.state.usernameTamp)
     }
 
     handleChangeSignIn = () => {
@@ -580,7 +580,7 @@ class Home extends Component {
                         </div>
                     </div>
                 </div>
-
+                <TestComponent gun={this.gun} />
             </div>)
     }
 }
