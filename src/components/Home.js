@@ -169,9 +169,17 @@ class Home extends Component {
     }
 
     sendLike = (gunKey) => {
+        var currentUser = this.state.userGunObject
         var post = this.gun.get('post').get(gunKey)
-        post.get('likes').set(this.state.userGunObject)
-        console.log(post.get('likes').map())
+        post.get('likes').set(currentUser)
+        currentUser.get('liked').set(post)
+    }
+
+    sendDislike = (gunKey) => {
+        var currentUser = this.state.userGunObject
+        var post = this.gun.get('post').get(gunKey)
+        post.get('dislikes').set(currentUser)
+        currentUser.get('disliked').set(post)
     }
 
     sendDislike = () => {
@@ -311,7 +319,7 @@ class Home extends Component {
                                                 <span><AiFillLike className="cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300"
                                                     onClick={() => this.sendLike(item.key)} /></span>
                                                 <span><AiFillDislike className="cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300"
-                                                    onClick={() => this.sendLike(item.key)} /></span>
+                                                    onClick={() => this.sendDislike(item.key)} /></span>
                                             </div>
                                         </div>
                                     </div>

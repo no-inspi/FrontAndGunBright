@@ -5,6 +5,7 @@ import {useEffect, useState} from 'react'
 import './components/Home';
 import Home from './components/Home';
 import { useAlert } from "react-alert";
+import React, { Component }  from 'react';
 
 const gun = Gun()
 
