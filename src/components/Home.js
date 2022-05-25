@@ -3,16 +3,20 @@ import Gun from 'gun/gun'
 import Sea from 'gun/sea'
 import { useAlert } from 'react-alert'
 import _ from 'lodash';
-import TestComponent from './TestComponent.js'
+
+// Component
+import TestComponent from './TestComponent.js';
+import Navigation from './Navigation.js';
+import Header from './Header.js';
 
 // icons
-import { FaBeer, FaEthereum, FaBitcoin,FaLeaf,FaFire } from 'react-icons/fa';
-import { AiFillLike, AiFillDislike, AiOutlineComment, AiFillCar,AiFillBank } from 'react-icons/ai';
+import { FaBeer, FaEthereum, FaBitcoin, FaLeaf, FaFire } from 'react-icons/fa';
+import { AiFillLike, AiFillDislike, AiOutlineComment, AiFillCar, AiFillBank } from 'react-icons/ai';
 import { SiHiveBlockchain } from 'react-icons/si';
 import { GiShinyPurse } from 'react-icons/gi';
-import {BsPeopleFill} from 'react-icons/bs';
-import {MdSendToMobile} from 'react-icons/md';
-import {HiFire} from 'react-icons/hi';
+import { BsPeopleFill } from 'react-icons/bs';
+import { MdSendToMobile } from 'react-icons/md';
+import { HiFire } from 'react-icons/hi';
 // material
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -33,27 +37,30 @@ import favicon from '../images/favicon.png';
 class Home extends Component {
     //const alert = useAlert()
 
-    constructor({ gun,alert }) {
+    constructor({ gun, alert }) {
         super()
         this.gun = gun;
-        this.userG = gun.user().recall({ sessionStorage: false })
+        this.userG = gun.user().recall({ sessionStorage: true })
         this.colorStr = ['danger', 'success', 'info']
         this.alert = alert;
-        this.state = { 
-            txt: '', username: '', 
-            password: '', confirmPassword: '', 
-            message: '', post: [], 
-            connected: false, 
-            listBoolComment: [], 
-            listColorStr: [], 
-            SignIn: true, 
+        this.state = {
+            txt: '', 
+            username: '',
+            password: '', 
+            confirmPassword: '',
+            message: '', 
+            post: [],
+            connected: false,
+            listBoolComment: [],
+            listColorStr: [],
+            SignIn: true,
             usernameTamp: "",
-            userGunObject : "",  
+            userGunObject: "",
         };
         // console.log(this.gun.get('users').map());
 
         console.log("Home gun : ")
-        gun.get('users').on(function(data, key){
+        gun.get('users').on(function (data, key) {
             console.log(data)
         })
 
@@ -73,28 +80,28 @@ class Home extends Component {
 
                 // get the author
                 var author = "";
-                var postTmp = self.gun.get('posts').get(key).get('author', function(ack) {
-                    if(ack.err){
+                var postTmp = self.gun.get('posts').get(key).get('author', function (ack) {
+                    if (ack.err) {
                         // console.log(ack.err)
-                      } else
-                      if(!ack.put){
-                        // not found
-                        // console.log('not found')
-                      } else {
-                        // data!
-                        // console.log("founded: ",ack.put.username)
-                        author = ack.put.username
-                      }
+                    } else
+                        if (!ack.put) {
+                            // not found
+                            // console.log('not found')
+                        } else {
+                            // data!
+                            // console.log("founded: ",ack.put.username)
+                            author = ack.put.username
+                        }
                 });
 
 
-                
+
                 // console.log("postpm: ",postTmp);
                 // postTmp.get('author').once(function (data, keyy) {
                 //     console.log('Author : ', keyy, data)
                 //     var author = data.username;
                 // },[])
-                const merged = _.merge({ 'key': key }, _.pick(post, ['content', 'key']), {'author': author});
+                const merged = _.merge({ 'key': key }, _.pick(post, ['content', 'key']), { 'author': author });
                 // console.log("merged:",merged)
                 const index = _.findIndex(post_tmp, (o) => { return o.key === key });
                 if (index < 0) {
@@ -125,82 +132,9 @@ class Home extends Component {
         }
     }
 
-    onUsernameChange = (event) => {
-        //    this.state.username = event.target.value
-        this.setState({ username: event.target.value });
-    }
-
-    onPasswordChange = (event) => {
-        // this.state.password = event.target.value
-        this.setState({ password: event.target.value });
-    }
-
-    onPasswordConfirmChange = (event) => {
-        // this.state.password = event.target.value
-        this.setState({ confirmPassword: event.target.value });
-    }
-
     onMessageChange = (event) => {
         // this.state.message = event.target.value
         this.setState({ message: event.target.value })
-    }
-
-    signup = () => {
-        const usernameSignup = this.state.username;
-        const passwordSignup = this.state.password;
-        const confirmPasswordSignup = this.state.confirmPassword;
-        const self = this;
-
-        if (this.state.username && this.state.password && this.state.confirmPassword) {
-            // console.log("singup test:",this.state.username,this.state.password,this.state.confirmPassword)
-            if (passwordSignup!=confirmPasswordSignup) {
-                this.alert.error('Passwords are not the same, please retry')
-            } else {
-                var userInfo = {
-                    username: usernameSignup
-                };
-        
-                var user = this.gun.get('users').get(userInfo.username).put(userInfo);
-
-                this.userG.create(usernameSignup, passwordSignup, function (ack) {
-                    // console.log(ack)
-                    if (ack.err) {
-                        self.alert.error(ack.err)
-                    }
-                    else {
-                        self.alert.success('User correctly created ! Welcome '+usernameSignup+' !')
-                        self.setState({username :'',password: '', confirmPassword: ''})
-                    }
-                })
-            }
-            
-            
-        }
-    }
-
-    signin = () => {
-        const self = this
-        const usernameTampSignIn = this.state.username
-        if (this.state.username && this.state.password) {
-            //Id : charlietest password1234567890
-
-            this.userG.auth(this.state.username, this.state.password, function (at) {
-                if (at.err) {
-                    self.alert.error(at.err)
-                }
-                else if (at.id) {
-                    self.alert.success('User correctly connected')
-                    // this.state.connected = true
-                    // console.log("test in sign in ",usernameTampSignIn)
-                    console.log("SignIn UserGunObject")
-                    var gunUserObject = self.gun.get('users').get(usernameTampSignIn)
-                    console.log(gunUserObject)
-                    self.setState({ connected: true,usernameTamp: usernameTampSignIn, userGunObject : gunUserObject})
-                    self.forceUpdate();
-                    self.componentDidMount()
-                }
-            })
-        }
     }
 
     getData = () => {
@@ -219,15 +153,15 @@ class Home extends Component {
         const self = this;
         var user = this.gun.get('users').get(this.state.usernameTamp);
         var contentToInsert = {
-            title: this.state.message+" title",
-            slug: this.state.message+"-slug",
+            title: this.state.message + " title",
+            slug: this.state.message + "-slug",
             content: this.state.message
         };
         var contentToInsertPost = this.gun.get('posts').get(contentToInsert.slug).put(contentToInsert);
         contentToInsertPost.get('author').put(user).get('posts').set(contentToInsertPost);
-        this.setState({message: ""})
+        this.setState({ message: "" })
         let listColorTmp = []
-        for (var i = 0; i < this.state.post.length+1; i++) {
+        for (var i = 0; i < this.state.post.length + 1; i++) {
             let int_tamp = Math.floor(Math.random() * 3)
             listColorTmp.push(this.colorStr[int_tamp])
         }
@@ -300,191 +234,38 @@ class Home extends Component {
         this.setState({ SignIn: !this.state.SignIn })
     }
 
+    // Callback function
+    setConnectedFromChild = (booleanVar) => {
+        this.setState({ connected: booleanVar })
+    }
+
+    setUsernameTampFromChild = (stringVar) => {
+        this.setState({ usernameTamp: stringVar })
+    }
+
+    setuserGunObjectFromChild = (varGun) => {
+        this.setState({userGunObject: varGun})
+    }
+
     render() {
         return (
             <div>
-                <div className='navigation'>
-                    <div className='navigation__title'>
-
-                        <img src={favicon} />
-                        <span className='navigation__title__content'>Bright </span>
-                        <span className='navigation__title__secondary'>New generation social network</span>
-                        {this.state.connected ? 
-                        <div className='navigation__card__login'>
-                            <div className="navigation__card__stats">
-                                <h3>Social network stats</h3>
-                                <div>
-                                   <BsPeopleFill /> Users : 5246
-                                </div>
-                                <div>
-                                    <MdSendToMobile/> Posts (24H) : 1528
-                                </div>
-                                <div>
-                                    <MdSendToMobile/> Posts (From start) : 62 923
-                                </div>
-                            </div>
-                        </div>
-
-                            :
-                            <div>
-
-                                {this.state.SignIn ?
-                                    <div className='navigation__card__login'>
-                                        <h4>Login</h4>
-                                        <TextField id="outlined-basic" size="small" label="Username" variant="outlined" color="success" sx={{
-                                            width: 'auto',
-                                            maxWidth: 200,
-                                            '& .MuiOutlinedInput-notchedOutline': {
-                                                borderRadius: "150px"
-                                            },
-                                            '& .MuiInputBase-root': {
-                                                borderRadius: "150px"
-                                            }
-                                        }} 
-                                        onChange={this.onUsernameChange}
-                                        />
-                                        <TextField id="outlined-basic" size="small" label="Password" variant="outlined" color="success" type="password" sx={{
-                                            width: 'auto',
-                                            maxWidth: 200,
-                                            mt: '10px',
-                                            '& .MuiOutlinedInput-notchedOutline': {
-                                                borderRadius: "150px"
-                                            },
-                                            '& .MuiInputBase-root': {
-                                                borderRadius: "150px"
-                                            }
-                                        }} 
-                                        onChange={this.onPasswordChange}
-                                        />
-                                        <Button variant="contained" sx={{
-                                            color: 'white',
-                                            width: 150,
-                                            maxWidth: 150,
-                                            backgroundColor: '#20B95F',
-                                            mt: '0.75rem',
-                                            borderRadius: 50,
-                                            
-                                        }}
-                                        onClick={this.signin}
-                                        >
-                                            Log In
-                                        </Button><br></br>
-                                        <Button variant="text" sx={{ mt: "0.50rem", color: "#1d8cf8", letterSpacing: "0.5px" }}
-                                            onClick={() => {
-                                                this.setState({ SignIn: !this.state.SignIn })
-                                            }}>
-                                            Join !
-                                        </Button>
-                                    </div>
-                                    :
-                                    <div className='navigation__card__login'>
-                                        <h4>Join us !</h4>
-                                        <TextField id="outlined-basic" size="small" label="Username" variant="outlined" color="success" sx={{
-                                            width: 'auto',
-                                            maxWidth: 200,
-                                            '& .MuiOutlinedInput-notchedOutline': {
-                                                borderRadius: "150px"
-                                            },
-                                            '& .MuiInputBase-root': {
-                                                borderRadius: "150px"
-                                            }
-                                        }} 
-                                        onChange={this.onUsernameChange}
-                                        />
-                                        <TextField id="Password" size="small" label="Password" variant="outlined" color="success" type="password" sx={{
-                                            width: 'auto',
-                                            maxWidth: 200,
-                                            mt: '10px',
-                                            '& .MuiOutlinedInput-notchedOutline': {
-                                                borderRadius: "150px"
-                                            },
-                                            '& .MuiInputBase-root': {
-                                                borderRadius: "150px"
-                                            }
-                                        }} 
-                                        onChange={this.onPasswordChange}
-                                        />
-                                        <TextField id="PasswordConfirmation" size="small" label="Confirm Password" variant="outlined" color="success" type="password" sx={{
-                                            width: 'auto',
-                                            maxWidth: 200,
-                                            mt: '10px',
-                                            '& .MuiOutlinedInput-notchedOutline': {
-                                                borderRadius: "150px"
-                                            },
-                                            '& .MuiInputBase-root': {
-                                                borderRadius: "150px"
-                                            }
-                                        }} 
-                                        onChange={this.onPasswordConfirmChange}
-                                        />
-                                        <Button variant="contained" sx={{
-                                            color: 'white',
-                                            width: 150,
-                                            maxWidth: 150,
-                                            backgroundColor: '#20B95F',
-                                            mt: '0.75rem',
-                                            borderRadius: 50,
-                                        }}
-                                        onClick={this.signup}
-                                        >
-                                            Join <DoneAllIcon className="ml-1" />
-                                        </Button>
-                                        <Button variant="text" sx={{ mt: "0.50rem", color: "#1d8cf8", letterSpacing: "0.5px" }}
-                                            onClick={() => {
-                                                this.setState({ SignIn: !this.state.SignIn })
-                                            }}>
-                                            Log in !
-                                        </Button>
-                                    </div>
-                                }
-                            </div>
-                        }
-                    </div>
-                    <div className='navigation__links grid grid-cols-2 gap-4'>
-                        <div className='category__title'>
-                            Top categories
-                        </div>
-                        <div className='category__title'>
-                            Fire categories
-                        </div>
-                        <div className='category__card'>
-                            <div>
-                                <FaEthereum />
-                            </div>
-                            <span>Crypto</span>
-                        </div>
-                        <div className='category__card'>
-                            <div><AiFillCar /></div>
-                            <span>Car</span>
-                        </div>
-                        <div className='category__card'>
-                            <div><SiHiveBlockchain /></div>
-                            <span>NFT</span>
-                        </div>
-                        <div className='category__card'>
-                            <div><GiShinyPurse /></div>
-                            <div className='icon__fire'><HiFire style={{"marginLeft": "3px", "color": "#DB2222"}}/> <span>(+24%)</span></div>
-                            <span>Stocks</span>
-                        </div>
-                        <div className='category__card'>
-                            <div><AiFillBank /></div>
-                            <div className='icon__fire'><HiFire style={{"marginLeft": "3px", "color": "#DB2222"}}/> <span>(+72%)</span></div>
-                            <span>Politics </span> 
-                        </div>
-                        <div className='category__card'>
-                            <div><FaLeaf /></div>
-                            <span>Ecology</span>
-                        </div>
-                    </div>
-
-                </div>
+                <Navigation 
+                gun={this.gun} 
+                connected={this.state.connected} 
+                alert={this.alert} 
+                setConnectedFromChild={this.setConnectedFromChild} 
+                setUsernameTampFromChild={this.setUsernameTampFromChild} 
+                setuserGunObjectFromChild={this.setuserGunObjectFromChild}
+                />
                 <div className='content__page'>
-                    <div className="top__header">
-                        <Box sx={{ display: 'flex', alignItems: 'flex-end', ml: 10 }}>
-                            <TextField id="input-with-sx" label="Type a category..." variant="standard" color="success" />
-                            <SearchIcon sx={{ color: 'action.active', mr: 1, my: 0.5, cursor: 'pointer' }} />
-                        </Box>
-                    </div>
+                    <Header 
+                    usernameTamp={this.state.usernameTamp} 
+                    gun={this.gun} 
+                    setConnectedFromChild={this.setConnectedFromChild} 
+                    alert={this.alert}
+                    connected={this.state.connected}
+                    />
 
                     <div className="post__container">
                         <TextField
@@ -505,7 +286,7 @@ class Home extends Component {
                             backgroundColor: '#20B95F',
                             mt: '0.75rem',
                             borderRadius: 50,
-                            }}
+                        }}
                             onClick={() => {
                                 this.sendMsg()
                             }}>
@@ -527,10 +308,10 @@ class Home extends Component {
                                             <p>{item.content}</p>
                                             <p className="timeline-subtitle">{item.author}</p>
                                             <div className="timeline-icons-bar">
-                                                <span><AiFillLike className="cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300" 
-                                                onClick={() => this.sendLike(item.key)}/></span>
-                                                <span><AiFillDislike className="cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300" 
-                                                onClick={() => this.sendLike(item.key)}/></span>
+                                                <span><AiFillLike className="cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300"
+                                                    onClick={() => this.sendLike(item.key)} /></span>
+                                                <span><AiFillDislike className="cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300"
+                                                    onClick={() => this.sendLike(item.key)} /></span>
                                             </div>
                                         </div>
                                     </div>
