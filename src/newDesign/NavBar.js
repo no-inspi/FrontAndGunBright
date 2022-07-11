@@ -165,10 +165,12 @@ class NavBar extends Component {
                                         Add another account
                                     </MenuItem>
                                     <MenuItem>
-                                        <ListItemIcon>
-                                            <Settings fontSize="small" />
-                                        </ListItemIcon>
-                                        Settings
+                                        <Link to="/admin">
+                                            <ListItemIcon>
+                                                <Settings fontSize="small" />
+                                            </ListItemIcon>
+                                            Admin
+                                        </Link>
                                     </MenuItem>
                                     <MenuItem onClick={this.disconnected}>
                                         <ListItemIcon>

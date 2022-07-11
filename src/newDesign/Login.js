@@ -114,7 +114,7 @@ class Login extends Component {
         return (
 
             <div className="login-container">
-                {this.state.connected ? (
+                {window.sessionStorage.getItem('username') ? (
                     <div>
                         Wow, what are you doing here ?? <Link to="/" style={{ color: "white" }}>Go Home</Link>
 

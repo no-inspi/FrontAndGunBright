@@ -11,6 +11,9 @@ const AdminHome = () => {
             el.remove();
             setLoading(!loading);
         }
+        else {
+            setLoading(false);
+        }
     }, [])
     if (loading) {
         return null;

@@ -163,6 +163,7 @@ const AdminStatsG = () => {
                                                 <TableCell align="right">Date</TableCell>
                                                 <TableCell align="right">Likes/Dislikes</TableCell>
                                                 <TableCell align="right">Comments</TableCell>
+                                                <TableCell align="right">Vues</TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
@@ -178,6 +179,7 @@ const AdminStatsG = () => {
                                                     <TableCell align="right">{row.since.split(' ')[0] + ' ' + row.since.split(' ')[1].split(':')[0] + ':' + row.since.split(' ')[1].split(':')[1]}</TableCell>
                                                     <TableCell align="right">{row.like}<b> / </b>{row.dislike}</TableCell>
                                                     <TableCell align="right">{row.comments.length}</TableCell>
+                                                    <TableCell align="right">{row.vues}</TableCell>
                                                 </TableRow>
                                             ))}
                                         </TableBody>
