@@ -1,0 +1,1 @@
+export const shortenDate = (date) => date.split(' ')[0] + ' ' + date.split(' ')[1].split(':')[0] + ':' + date.split(' ')[1].split(':')[1];

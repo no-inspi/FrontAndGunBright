@@ -165,3 +165,38 @@
     align-items: center;
     margin-top: 10px;
 }
+
+/* footer */
+.footer {
+    position: absolute;
+    bottom: 30px;
+    padding: 0px 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.social__network__links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.social__network__links span {
+    margin-right: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.copyright {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.copyright span {
+    font-weight: 600;
+    letter-spacing: 1px;
+}

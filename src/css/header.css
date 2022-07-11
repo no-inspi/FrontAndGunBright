@@ -1,9 +1,13 @@
 .top__header {
     width: 100%;
     background-color:white;
-    padding: 20px;
+    padding: 10px;
     border-bottom: 1px solid #e7edf2;
     text-align: left;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0; 
+    z-index: 4;
 }
 
 .post__container {

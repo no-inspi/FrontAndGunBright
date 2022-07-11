@@ -1,0 +1,1 @@
+export const categories = ["Crypto", "Car", "NFT", "Stocks", "Politics", "Ecology"];

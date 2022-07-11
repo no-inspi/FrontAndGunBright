@@ -1,0 +1,48 @@
+body {
+    font-family: Poppins,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+}
+
+.admin_container {
+    padding-top: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.card_statsG {
+    background-color: #fff;
+    border-radius: 0.375rem;
+    box-shadow: 0 7px 14px 0 rgba(65,69,88,0.1),0 3px 6px 0 rgba(0,0,0,0.07);
+    padding: 20px;
+    text-align: left;
+}
+
+.card_title {
+    font-size: .8333333333rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #344050;
+}
+
+.card_metrics {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 2.0736rem;
+    color: rgba(94,110,130,1) !important;
+    margin-top: 1.25rem;
+    margin-right: 20px;
+}
+
+.card_icon {
+    /* font-size: 25px; */
+}
+
+.card_graph {
+    background-color: #fff;
+    border-radius: 0.375rem;
+    box-shadow: 0 7px 14px 0 rgba(65,69,88,0.1),0 3px 6px 0 rgba(0,0,0,0.07);
+    padding: 20px;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}

@@ -72,7 +72,7 @@ p {
 
 .timeline .timeline-container .timeline-body {
     background: #27293d;
-    border-radius: 3px;
+    border-radius: 15px 15px 2px 2px;
     padding: 20px 20px 15px;
     box-shadow: 1px 3px 9px rgba(0, 0, 0, 0.1);
 }
@@ -190,8 +190,53 @@ p {
     display: flex;
     flex-direction: row;
     font-size: 1.4em;
+    margin-top: 30px;
+    gap: 10px 30px;
 }
 
 .timeline-icons-bar span {
     margin-left: 10px;
+}
+
+/* Comments */
+.timeline__comment {
+    padding: 10px;
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 15px 100px rgb(58 46 68 / 30%);
+    color: #4f515b;
+    transition: all 2s ease;
+    text-align: left;
+}
+
+.list__comment {
+    margin-left: 40px;
+    
+}
+
+.list__comment li {
+    padding: 5px 0px;
+}
+
+.list__li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.list__li span {
+    margin-left: 10px;
+}
+
+.send_comment {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.number__style {
+    font-weight: 0;
+    font-size: 12px;
 }

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
 // icons
-import { FaBeer, FaEthereum, FaBitcoin,FaLeaf,FaFire } from 'react-icons/fa';
+import { FaBeer, FaEthereum, FaBitcoin,FaLeaf,FaFire,FaCopyright } from 'react-icons/fa';
 import { AiFillLike, AiFillDislike, AiOutlineComment, AiFillCar,AiFillBank } from 'react-icons/ai';
 import { SiHiveBlockchain } from 'react-icons/si';
 import { GiShinyPurse } from 'react-icons/gi';
-import {BsPeopleFill} from 'react-icons/bs';
+import {BsPeopleFill,BsDiscord,BsLinkedin} from 'react-icons/bs';
 import {MdSendToMobile} from 'react-icons/md';
 import {HiFire} from 'react-icons/hi';
 
@@ -21,6 +21,8 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 import favicon from '../images/favicon.png';
 
+import axios from 'axios';
+
 class Navigation extends Component {
 
     constructor({gun,alert}) {
@@ -29,6 +31,7 @@ class Navigation extends Component {
         this.gun = gun;
         this.userG = gun.user().recall({ sessionStorage: true })
         this.alert = alert;
+
 
         this.state = { 
             username: '', 
@@ -64,6 +67,11 @@ class Navigation extends Component {
                         self.alert.error(ack.err)
                     }
                     else {
+                        axios
+                        .get("http://127.0.0.1:8000/create_user?username=" + usernameSignup)
+                        .then(response => 
+                           console.log(response)
+                        );
                         self.alert.success('User correctly created ! Welcome '+usernameSignup+' !')
                         self.setState({username :'',password: '', confirmPassword: ''})
                     }
@@ -96,6 +104,8 @@ class Navigation extends Component {
                     self.props.setuserGunObjectFromChild(gunUserObject)
                     // self.setState({ connected: true,usernameTamp: usernameTampSignIn, userGunObject : gunUserObject})
                     self.forceUpdate();
+                    window.sessionStorage.setItem("username", usernameTampSignIn)
+                    window.location.reload()
                 }
             })
         }
@@ -291,7 +301,16 @@ class Navigation extends Component {
                             <span>Ecology</span>
                         </div>
                     </div>
-
+                    <div className='footer'>
+                        <div className='copyright'>
+                            <FaCopyright className='text-xl cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:text-[#20B95F] duration-200' /><span>2022 Bright</span>
+                        </div>
+                        <div className='social__network__links'>
+                            <span>Our media </span> 
+                            <BsDiscord className='text-xl cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:text-[#20B95F] duration-200' />
+                            <BsLinkedin className='text-xl ml-2 cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:text-[#20B95F] duration-200' />
+                        </div>
+                    </div>
                 </div>
         )
     }

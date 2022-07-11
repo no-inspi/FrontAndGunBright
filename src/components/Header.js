@@ -11,6 +11,7 @@ import Cloud from '@mui/icons-material/Cloud';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
+import Autocomplete from '@mui/material/Autocomplete';
 
 // icons material
 import SearchIcon from '@mui/icons-material/Search';
@@ -30,13 +31,22 @@ class Header extends Component {
         this.userG = gun.user().recall({ sessionStorage: true });
         this.alert = alert;
         
-        // this.usernameTampFirstLetter = this.props.usernameTamp;
+        this.category = ["Crypto","Car","NFT","Stocks","Politics","Ecology"]
 
         this.state = {
             anchorEl: null,
             open: null,
+            usernameTampFirstLetter: '',
         };
     }
+
+    // componentDidMount() {
+    //     console.log('header didmount',this.props.usernameTamp)
+    //     this.setState({ usernameTampFirstLetter:  this.props.usernameTamp.charAt(0).toUpperCase()});
+    //     // if(this.state.usernameTampFirstLetter!='') {
+
+    //     // }
+    // }
 
 
     handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -52,6 +62,8 @@ class Header extends Component {
         this.userG.leave()
         this.props.setConnectedFromChild(false)
         this.alert.success('User correctly disconnected')
+        window.sessionStorage.removeItem("username")
+        window.location.reload()
     }
 
 
@@ -60,13 +72,20 @@ class Header extends Component {
             <div className="top__header">
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', ml: 10 }}>
                     <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-                        <TextField id="input-with-sx" label="Type a category..." variant="standard" color="success" />
+                        <Autocomplete
+                            freeSolo
+                            disablePortal
+                            id="combo-box-demo"
+                            options={this.category.map((option) => option)}
+                            sx={{ width: 300 }}
+                            renderInput={(params) => <TextField {...params} id="input-with-sx" label="Type a category..."  variant="standard" color="success"  />}
+                        />
                         <SearchIcon sx={{ color: 'action.active', mr: 1, cursor: 'pointer' }} />
                     </Box>
                     {this.props.connected ? 
                     <Box sx={{ mr: 10 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                            <Tooltip title="Account settings">
+                            <Tooltip title={this.props.usernameTamp.toUpperCase()}>
                                 <IconButton
                                     onClick={this.handleClick}
                                     size="small"
@@ -75,7 +94,7 @@ class Header extends Component {
                                     aria-haspopup="true"
                                     aria-expanded={this.state.open ? 'true' : undefined}
                                 >
-                                    <Avatar sx={{ width: 42, height: 42, bgcolor: "#20B95F" }}>P</Avatar>{this.props.usernameTamp}
+                                    <Avatar sx={{ width: 42, height: 42, bgcolor: "#20B95F" }}>{this.props.usernameTamp.charAt(0).toUpperCase()}</Avatar>
                                 </IconButton>
                             </Tooltip>
                         </Box>
@@ -102,7 +121,7 @@ class Header extends Component {
                                         display: 'block',
                                         position: 'absolute',
                                         top: 0,
-                                        right: 14,
+                                        right: 20,
                                         width: 10,
                                         height: 10,
                                         bgcolor: 'background.paper',
