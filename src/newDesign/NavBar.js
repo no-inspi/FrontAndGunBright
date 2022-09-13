@@ -8,12 +8,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Cloud from '@mui/icons-material/Cloud';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import Autocomplete from '@mui/material/Autocomplete';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import { alpha, styled } from "@mui/material/styles";
+import InputBase from '@mui/material/InputBase';
 
 // icons material
 import SearchIcon from '@mui/icons-material/Search';
@@ -22,14 +23,36 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import IconButton from '@mui/material/IconButton';
-import LoginIcon from '@mui/icons-material/Login';
-import AddBoxIcon from '@mui/icons-material/AddBox';
 
-import {categories} from '../utils/categories';
 
+import { categories } from '../utils/categories';
+import { BsBorderWidth } from 'react-icons/bs';
+
+
+const BootstrapButton = styled(Button)({
+    boxShadow: 'none',
+    textTransform: 'none',
+    borderRadius: '20px',
+    fontSize: '1rem',
+    padding: '6px 20px',
+    backgroundColor: '#303030',
+    '&:hover': {
+        backgroundColor: '#0069d9',
+        borderColor: '#0062cc',
+        boxShadow: 'none',
+    },
+    '&:active': {
+        boxShadow: 'none',
+        backgroundColor: '#0062cc',
+        borderColor: '#005cbf',
+    },
+    '&:focus': {
+        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+    },
+});
 
 class NavBar extends Component {
-    
+
 
     constructor() {
         super()
@@ -73,8 +96,10 @@ class NavBar extends Component {
         if (event.target.innerText) {
             this.props.setCategorie(event.target.innerText)
         }
-        
+
     }
+
+
 
 
     render() {
@@ -82,24 +107,47 @@ class NavBar extends Component {
             <div className="top__header">
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', ml: 10, mr: 10 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '600' }}>
-                            Bright
+                        <Box sx={{ display: 'flex', alignItems: 'center', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '600', color: 'white', fontSize: '22px' }}>
+                            Braight
                         </Box>
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center'}}>
-                        <Box sx={{ display: 'flex', alignItems: 'flex-end', ml: 10 }}>
-                            <Autocomplete
-                                freeSolo
-                                disablePortal
-                                id="combo-box-demo"
-                                options={this.category.map((option) => option)}
-                                sx={{ width: 300 }}
-                                onChange={this.updateCategorie}
-                                renderInput={(params) => <TextField {...params} id="input-with-sx" label="Type a category..." variant="standard" color="success"  />}
-                            />
-                            <SearchIcon sx={{ color: 'action.active', mr: 1, cursor: 'pointer' }} />
-                        </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+                            <div className='searchBar'>
+                                <Autocomplete
+                                    freeSolo
+                                    disablePortal
+                                    id="combo-box-demo"
+                                    options={this.category.map((option) => option)}
+                                    sx={{ width: 800, height: 'auto', color: 'white' }}
+                                    onChange={this.updateCategorie}
+                                    renderInput={(params) => (
 
+                                        <TextField {...params} id="input-with-sx" label="Type a category..." variant="outlined" size="small"
+                                            style={{ backgroundColor: '#303030', borderRadius: '20px' }}
+                                            sx={{
+                                                "& .MuiFormLabel-root": {
+                                                    color: '#959595'
+                                                },
+                                                "& .MuiFormLabel-root.Mui-focused": {
+                                                    color: '#959595'
+                                                },
+                                                "& .MuiOutlinedInput-root.Mui-focused": {
+                                                    "& > fieldset": {
+                                                        borderColor: "transparent",
+                                                    }
+                                                }
+                                            }}
+                                        />
+
+                                    )
+                                    }
+                                />
+                            </div>
+                            {/* <SearchIcon sx={{ color: 'white', mr: 1, cursor: 'pointer', }} /> */}
+                        </Box>
+                    </Box>
+                    <Box>
                         {this.props.connected ?
                             <Box>
                                 <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -182,25 +230,36 @@ class NavBar extends Component {
                             </Box>
                             :
                             (
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center'}}>
                                     {/* <Button variant="contained" startIcon={<LoginIcon />}>
                             SignIn
                         </Button>
                         <Button variant="contained" startIcon={<AddBoxIcon />} sx={{marginLeft: '20px'}}>
                             SignUp
                         </Button> */}
-                                    <ButtonGroup variant="outlined" aria-label="text button group">
-                                        <Button sx={{textTransform: 'none'}}>
+                                    {/* <ButtonGroup variant="outlined" aria-label="text button group">
+                                        <Button sx={{ textTransform: 'none', borderRadius: 20, borderColor: 'transparent', backgroundColor: '#303030', color: 'white' }}>
                                             <Link to="/login">
                                                 Login
                                             </Link>
                                         </Button>
-                                        <Button sx={{textTransform: 'none'}}>
+                                        <Button sx={{ textTransform: 'none', borderRadius: 20, borderColor: 'transparent', backgroundColor: '#303030', color: 'white' }}>
                                             <Link to="/signup">
                                                 SignUp
                                             </Link>
                                         </Button>
                                     </ButtonGroup>
+                                     */}
+                                    <BootstrapButton variant="contained" sx={{mr: 2}}>
+                                        <Link to="/login">
+                                            Login
+                                        </Link>
+                                    </BootstrapButton>
+                                    <BootstrapButton variant="contained">
+                                        <Link to="/signup">
+                                            Sign up
+                                        </Link>
+                                    </BootstrapButton>
                                 </Box>
                             )}
                     </Box>

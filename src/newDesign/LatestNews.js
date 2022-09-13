@@ -73,7 +73,7 @@ const LatestNews = () => {
     }
 
     return (
-        <Box sx={{ position: 'fixed', width: "22%", right: "1.5%", top: "90px" }} className="news-container">
+        <Box sx={{ position: 'fixed', width: "22%", right: "0", top: "90px" }} className="news-container">
             <Box sx={{ borderBottom: "1px solid #e9edf4" }} className="news-title">
                 Latest Founder's Posts
             </Box>

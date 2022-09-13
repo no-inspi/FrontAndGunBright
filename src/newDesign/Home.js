@@ -231,6 +231,7 @@ const Home = () => {
 
         if (categoriesTab.length == 0) {
             alert.error("You need to give at least one category")
+            return false
         }
         else {
 
@@ -260,13 +261,16 @@ const Home = () => {
                 setMessage("")
                 setTitle("")
                 setChangeVariable(!changeVariable)
+                return true
             }
             else {
                 if (message == "" && window.sessionStorage.getItem('username')) {
                     alert.error("Message can't be empty")
+                    return false
                 }
                 else {
                     alert.error("You can't post when not connected")
+                    return false
                 }
 
             }
@@ -286,7 +290,7 @@ const Home = () => {
     
 
     return (
-        <div>
+        <div style={{backgroundColor: "#121212"}}>
             <NavBar
                 usernameTamp={usernameTamp}
                 setConnectedFromChild={setConnectedFromChild}
@@ -295,7 +299,7 @@ const Home = () => {
                 categorie={categorie}
                 setCategorie={setCategorie}
             />
-            <div style={{ backgroundColor: "#f0f0f5" }}>
+            <div>
                 <div style={{ display: "flex", flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: "20px" }}>
                     <Post
                         onMessageChange={onMessageChange}

@@ -1,8 +1,8 @@
 .top__header {
     width: 100%;
-    background-color:white;
-    padding: 10px;
-    border-bottom: 1px solid #e7edf2;
+    background-color: #121212;
+    padding: 20px 10px;
+    /* border-bottom: 1px solid #e7edf2; */
     text-align: left;
     position: -webkit-sticky; /* Safari */
     position: sticky;
@@ -35,4 +35,16 @@
     bottom: -12px;
     z-index: -1;
     box-shadow: 0 15px 100px rgb(58 46 68 / 6%);
+}
+
+.searchBar fieldset {
+    border-radius: 20px;
+}
+
+.searchBar input {
+    color: white;
+}
+
+.searchBar input:focus {
+    border-color: white;
 }

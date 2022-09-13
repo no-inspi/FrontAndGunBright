@@ -71,7 +71,7 @@ const AdminStatsG = () => {
             })
 
         axios
-            .get("http://127.0.0.1:8000/get_metrics_admin_last_5?number=5")
+            .get("http://127.0.0.1:8000/get_metrics_admin_last_5?number=6")
             .then(response => {
                 setLast5Post(response.data)
                 console.log(response.data)
