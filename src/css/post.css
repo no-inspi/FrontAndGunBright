@@ -1,8 +1,8 @@
 .card-post {
-    box-shadow: 0 4px 25px 0 rgb(168 180 208 / 10%);
+    /* box-shadow: 0 4px 25px 0 rgb(168 180 208 / 10%); */
     padding: 25px;
     border-radius: 7px;
-    background-color: white;
+    background-color: #1d1d1d;
 
 }
 
@@ -81,4 +81,64 @@
 .TextField-with-border-radius fieldset {
     border-radius: 50px;
     cursor: pointer;
+    background-color: white;
+    /* border: 1px solid #303030; */
+}
+
+/* refonte graphique */
+.post_container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: white;
+    width: 50%;
+    margin-bottom: 40px;
+}
+
+.post_title_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    padding: 10px 0;
+    border-bottom: 3px solid white;
+}
+
+.post_title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    max-width: 80%;
+}
+
+.post_date {
+    color: #959595;
+}
+
+.post_categories_container {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.post_categories {
+    border-radius: 20px;
+    padding: 5px 10px;
+}
+
+.post_content_container {
+    background-color: #1d1d1d;
+    border-radius: 5px;
+    text-align: left;
+    padding: 10px 20px;
+}
+
+.post_icons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 10px;
 }

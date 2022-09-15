@@ -10,7 +10,7 @@ import axios from 'axios';
 import NavBar from './NavBar';
 import Post from './Post';
 import Posts from './Posts';
-import Categorie from './Categorie';
+import CategorieV2 from './CategorieV2';
 import LatestNews from './LatestNews';
 import useIntersection from '../utils/useIntersection';
 
@@ -323,7 +323,7 @@ const Home = () => {
                     alert={alert}
                 />
                 )}
-                <Categorie categorie={categorie} setCategorie={setCategorie} />
+                <CategorieV2 categorie={categorie} setCategorie={setCategorie} />
                 <LatestNews />
             </div>
 

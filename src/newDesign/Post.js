@@ -115,7 +115,7 @@ const Post = (props) => {
                         readOnly: true,
                     }}
                     label="Hi ! Post something interesting :)"
-                    color="success"
+                    color="primary"
                     sx={{ width: "100%", fontSize: "0.875rem", cursor: "pointer" }}
                     onClick={handleClickOpen}
                 />

@@ -7,38 +7,24 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 
-const LatestPost = [
-    {
-        author: "Padaqore",
-        date: "17/06/2022",
-        content: "A post from charlie"
-    },
-    {
-        author: "Padaqore",
-        date: "15/06/2022",
-        content: "Encore un post from charlie"
-    },
-    {
-        author: "BoumizLeSang",
-        date: "12/06/2022",
-        content: "Ca fait beaucoup là nan ?"
-    },
-    {
-        author: "Yvan",
-        date: "06/06/2022",
-        content: "Et comme par hasard !"
-    },
-    {
-        author: "AlexandraAKALaFolle",
-        date: "01/06/2022",
-        content: "MARC JE T'AIME !!!"
-    },
-    {
-        author: "Marc",
-        date: "16/05/2022",
-        content: "Je pense qu'il est un peu trop tôt pour faire un choix mais mon choix est fait"
-    },
-]
+import { ArrowCircleLeft } from "@mui/icons-material";
+
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+        <div
+            className={className}
+            style={{ ...style, display: "block", background: "#303030", padding: 2, width: "30px", height: "30px", borderRadius: "20px", paddingLeft: "2px", paddingTop: "6px"}}
+            onClick={onClick}
+        >
+            <ArrowCircleLeft />
+        </div>
+    );
+}
 
 const LatestNews = () => {
 
@@ -72,47 +58,90 @@ const LatestNews = () => {
         };
     }
 
+    const settings = {
+        infinite: true,
+        speed: 200,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        arrows: true,
+        centerPadding: '20px',
+        centerMode: true,
+        autoplay: true,
+        speed: 1000,
+        autoplaySpeed: 5000,
+        cssEase: "ease-in-out",
+        prevArrow: <SamplePrevArrow />,
+        initialSlide: 1,
+        pauseOnHover: true
+    };
+
     return (
-        <Box sx={{ position: 'fixed', width: "22%", right: "0", top: "90px" }} className="news-container">
-            <Box sx={{ borderBottom: "1px solid #e9edf4" }} className="news-title">
-                Latest Founder's Posts
-            </Box>
-            <Box className="news-posts-container">
-                {LatestPost.map(post => {
-                    return (
-                        <Box className="news-post" >
-                            <Avatar {...stringAvatar(post.author)} />
-                            
-                            <div className="post-content">
-                                <div>{post.author}</div>
-                                <div>{post.date}</div>
-                                <div>{post.content}</div>
-                            </div>
-                        </Box>
-                    )
-                })}
-                {/* <Box className="news-post" >
-                    <div>
-                        <Avatar {...stringAvatar('Padaqore')} />
-                    </div>
-                    <div className="post-content">
-                        <div>Padaqore</div>
-                        <div>17/06/2022</div>
-                        <div>A post from charlie, one founder</div>
-                    </div>
+        <Box sx={{ position: 'fixed', width: "22%", right: "0", top: "90px", bottom: 0 }} className="news-container">
+            <Box className="news_idk">
+                <Box className="news_title">
+                    Top
                 </Box>
-                <Box className="news-post">
+                <Slider {...settings} className="news_slider">
                     <div>
-                        <Avatar {...stringAvatar('UnIencli')} />
+                        <div className="news_card">Lorem ipsum dolor sit amet consectetur adipisicing elit</div>
                     </div>
-                    <div className="post-content">
-                        <div>UnIencli</div>
-                        <div>17/06/2022</div>
-                        <div>A post from charlie, one founder</div>
+                    <div>
+                        <div className="news_card">Maxime mollitia,molestiae</div>
                     </div>
+                    <div>
+                        <div className="news_card">odit fugiat iusto fuga praesentiumoptio</div>
+                    </div>
+                    <div>
+                        <div className="news_card">4</div>
+                    </div>
+                </Slider>
+                {/* <Box className="news_slider">
+                    <Box className="news_card">
+                        Post title that can be short or long, it looks like whe ...
+                    </Box>
+                    <Box className="news_card">
+                        Post title that can be short or long, it looks like whe ...
+                    </Box>
                 </Box> */}
             </Box>
-
+            <Box className="news_idk">
+                <Box className="news_title" style={{ color: "#7633cb" }}>
+                    Trending
+                </Box>
+                <Slider {...settings} className="news_slider">
+                    <div>
+                        <div className="news_card">1</div>
+                    </div>
+                    <div>
+                        <div className="news_card">2</div>
+                    </div>
+                    <div>
+                        <div className="news_card">3</div>
+                    </div>
+                    <div>
+                        <div className="news_card">4</div>
+                    </div>
+                </Slider>
+            </Box>
+            <Box className="news_idk">
+                <Box className="news_title" style={{ color: "#ba3931" }}>
+                    New
+                </Box>
+                <Slider {...settings} className="news_slider">
+                    <div>
+                        <div className="news_card">1</div>
+                    </div>
+                    <div>
+                        <div className="news_card">2</div>
+                    </div>
+                    <div>
+                        <div className="news_card">3</div>
+                    </div>
+                    <div>
+                        <div className="news_card">4</div>
+                    </div>
+                </Slider>
+            </Box>
         </Box>
     )
 }

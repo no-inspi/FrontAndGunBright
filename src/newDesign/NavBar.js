@@ -23,6 +23,7 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import IconButton from '@mui/material/IconButton';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 
 import { categories } from '../utils/categories';
@@ -107,7 +108,7 @@ class NavBar extends Component {
             <div className="top__header">
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', ml: 10, mr: 10 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '600', color: 'white', fontSize: '22px' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', letterSpacing: '1px', fontWeight: '600', color: 'white', fontSize: '50px' }}>
                             Braight
                         </Box>
                     </Box>
@@ -151,7 +152,7 @@ class NavBar extends Component {
                         {this.props.connected ?
                             <Box>
                                 <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                                    <Tooltip title={this.props.usernameTamp.toUpperCase()}>
+                                    {/* <Tooltip title={this.props.usernameTamp.toUpperCase()}>
                                         <IconButton
                                             onClick={this.handleClick}
                                             size="small"
@@ -160,9 +161,27 @@ class NavBar extends Component {
                                             aria-haspopup="true"
                                             aria-expanded={this.state.open ? 'true' : undefined}
                                         >
-                                            <Avatar sx={{ width: 42, height: 42, bgcolor: "#20B95F" }}>{this.props.usernameTamp.charAt(0).toUpperCase()}</Avatar>
+                                            <Box className="">
+                                                {this.props.usernameTamp.charAt(0).toUpperCase()}
+                                            </Box>
                                         </IconButton>
-                                    </Tooltip>
+                                    </Tooltip> */}
+                                    <Button
+                                        id="demo-customized-button"
+                                        aria-controls={this.state.open ? 'account-menu' : undefined}
+                                        aria-haspopup="true"
+                                        aria-expanded={this.state.open ? 'true' : undefined}
+                                        variant="contained"
+                                        disableElevation
+                                        onClick={this.handleClick}
+                                        endIcon={<KeyboardArrowDownIcon size="large" />}
+                                        startIcon={<Avatar sx={{ width: 24, height: 24, mr: 2, ml:0, bgcolor: '#959595' }}></Avatar> }
+                                        sx={{textTransform: 'none', borderRadius: '20px', backgroundColor: "#303030"}}
+                                    >
+                                        <Box sx={{mr: 2}}>
+                                            {this.props.usernameTamp}
+                                        </Box>
+                                    </Button>
                                 </Box>
                                 <Menu
                                     id="basic-menu"
@@ -230,7 +249,7 @@ class NavBar extends Component {
                             </Box>
                             :
                             (
-                                <Box sx={{ display: 'flex', alignItems: 'center'}}>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                     {/* <Button variant="contained" startIcon={<LoginIcon />}>
                             SignIn
                         </Button>
@@ -250,7 +269,7 @@ class NavBar extends Component {
                                         </Button>
                                     </ButtonGroup>
                                      */}
-                                    <BootstrapButton variant="contained" sx={{mr: 2}}>
+                                    <BootstrapButton variant="contained" sx={{ mr: 2 }}>
                                         <Link to="/login">
                                             Login
                                         </Link>
