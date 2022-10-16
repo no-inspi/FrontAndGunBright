@@ -65,7 +65,7 @@ class Login extends Component {
                     else {
                         if (response.data.username) {
                             console.log(response.data.username)
-                            this.alert.success('User correctly created ! Welcome ' + response.data.username + ' !')
+                            this.alert.success('User correctly connected ! Welcome ' + response.data.username + ' !')
                             window.sessionStorage.setItem("username", response.data.username)
                             window.location = "http://localhost:3000/"
                         }

@@ -15,6 +15,9 @@ import { Routes, Route } from "react-router-dom";
 import AdminHome from './newDesign/AdminPanel/AdminHome';
 import AdminLogin from './newDesign/AdminPanel/AdminLogin';
 
+//Test
+import ImageUploader from './newDesign/ImageUploader';
+
 const gun = Gun()
 
 
@@ -30,6 +33,7 @@ function App() {
         <Route path="/signup" element={<SignUp gun={gun} alert={alert}/>}/>
         <Route path="/admin" element={<AdminHome alert={alert}/>}/>
         <Route path="/admin/login" element={<AdminLogin alert={alert}/>}/>
+        <Route path="/admin/test" element={<ImageUploader alert={alert}/>}/>
       </Routes>
     </div>
     

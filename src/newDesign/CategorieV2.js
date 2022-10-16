@@ -88,22 +88,24 @@ export default function CategorieV2(props) {
                         <u>See more</u>
                     </Box>
                 </Box>
-                <Box className='categorie_list'>
-                    {categories.map((category, index) => (
-                        allCategorieBool[index] ? (
-                            <div onClick={(event) => updateCategorie(index,event)} className="categorie categorie_active">
-                                {category}
-                            </div>
-                        )
-                            :
-                            (
-                                <div onClick={(event) => updateCategorie(index,event)} className="categorie">
+                <div className='categorie_scrollable' id="categorie_scrollable">
+                    <Box className='categorie_list' >
+                        {categories.map((category, index) => (
+                            allCategorieBool[index] ? (
+                                <div onClick={(event) => updateCategorie(index,event)} className="categorie categorie_active">
                                     {category}
                                 </div>
                             )
-                    ))}
+                                :
+                                (
+                                    <div onClick={(event) => updateCategorie(index,event)} className="categorie">
+                                        {category}
+                                    </div>
+                                )
+                        ))}
 
-                </Box>
+                    </Box>
+                </div>
             </Box>
         </Box>
     );

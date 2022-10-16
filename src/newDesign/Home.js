@@ -45,6 +45,7 @@ import "../css/timeline.css";
 import "../css/header.css";
 import "../css/post.css";
 import "../css/categorie.css";
+import "../css/drawer.css";
 import favicon from '../images/favicon.png';
 import { WindowSharp } from '@mui/icons-material';
 import { keyframes } from '@emotion/react';
@@ -222,8 +223,15 @@ const Home = () => {
         setTitle(event.target.value)
     }
 
-    const sendMsg = (categoriesTab) => {
+    const sendMsg = (categoriesTab,images) => {
         console.log(categoriesTab)
+        // images processing
+        const formData = new FormData();
+
+        images.forEach(img => {
+            formData.append("files", img.file)
+        })
+
         var categorieStr = ""
         for (let i = 0; i < categoriesTab.length; i++) {
             categorieStr = categorieStr + "&c=" + categoriesTab[i]
@@ -256,6 +264,21 @@ const Home = () => {
                     .then(response =>
                         console.log(response)
                     );
+
+                    axios({
+                        method: 'post',
+                        url: 'http://127.0.0.1:8000/uploadfiles/?destination=images&id_gun='+encryptUniqueId,
+                        data: formData,
+                        headers: { 'Content-Type': 'multipart/form-data' }
+                    })
+                        .then(function (response) {
+                            //handle success
+                            console.log(response);
+                        })
+                        .catch(function (response) {
+                            //handle error
+                            console.log(response);
+                        });
 
                 alert.success('Post correctly send !')
                 setMessage("")

@@ -28,6 +28,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import "../css/comment.css";
 
@@ -72,6 +73,7 @@ const Posts = (props) => {
     const [tableViewBool, setTableViewBool] = useState([])
     // modal state
     const [open, setOpen] = React.useState(false);
+    const [url, setUrl] = useState("https://storage.cloud.google.com/braightimgstorage/dots-6297146.jpg?authuser=3")
 
 
     const ref = useRef();
@@ -325,7 +327,10 @@ const Posts = (props) => {
 
         <div style={{ display: "flex", flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: "20px" }}>
 
-            {props.post.length === 0 ? "Sorry there is no post in this category" : (
+            {props.post.length === 0 ? (
+                <Box sx={{ display: 'flex' }}>
+                    <CircularProgress />
+                </Box>) : (
                 props.post.map((item, key) => {
                     return (
                         <InView className='post_container' as="div" threshold={0.5} triggerOnce={true} onChange={(inView, entry) => inView ? PostinView(inView, key, item.id_gun) : ""}>
@@ -349,7 +354,14 @@ const Posts = (props) => {
                             </div>
                             <div className='post_content_container'>
                                 {item.content}
+                                
+                                {item.img_list.length > 0 ? (
+                                    <div style={{marginTop: 15}}>
+                                        <img src={item.img_list[0].nomimg} />
+                                    </div>
+                                ) : null}
                             </div>
+
                             <div className='post_icons_container'>
                                 <Badge color="primary" badgeContent={item.like} showZero className="cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300">
                                     {item.liked_bool ? (

@@ -24,10 +24,20 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 
 import { categories } from '../utils/categories';
 import { BsBorderWidth } from 'react-icons/bs';
+
+// import component 👇
+import Drawer from 'react-modern-drawer'
+
+//import styles 👇
+import 'react-modern-drawer/dist/index.css'
 
 
 const BootstrapButton = styled(Button)({
@@ -63,6 +73,7 @@ class NavBar extends Component {
         this.state = {
             anchorEl: null,
             open: null,
+            opendrawer: false,
             usernameTampFirstLetter: '',
         };
     }
@@ -74,6 +85,10 @@ class NavBar extends Component {
 
     //     // }
     // }
+
+    handleClickDrawer = () => {
+        this.setState({ opendrawer: !this.state.opendrawer })
+    }
 
 
     handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -107,9 +122,13 @@ class NavBar extends Component {
         return (
             <div className="top__header">
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', ml: 10, mr: 10 }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', letterSpacing: '1px', fontWeight: '600', color: 'white', fontSize: '50px' }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', letterSpacing: '1px', fontWeight: '600', color: 'white', fontSize: '40px' }}>
                             Braight
+
+                        </Box>
+                        <Box sx={{ color: '#808080', fontSize: "12px" }}>
+                            Le réseau de l'influence anonyme
                         </Box>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -168,20 +187,58 @@ class NavBar extends Component {
                                     </Tooltip> */}
                                     <Button
                                         id="demo-customized-button"
-                                        aria-controls={this.state.open ? 'account-menu' : undefined}
-                                        aria-haspopup="true"
-                                        aria-expanded={this.state.open ? 'true' : undefined}
+                                        // aria-controls={this.state.open ? 'account-menu' : undefined}
+                                        // aria-haspopup="true"
+                                        // aria-expanded={this.state.open ? 'true' : undefined}
                                         variant="contained"
                                         disableElevation
-                                        onClick={this.handleClick}
+                                        onClick={this.handleClickDrawer}
                                         endIcon={<KeyboardArrowDownIcon size="large" />}
-                                        startIcon={<Avatar sx={{ width: 24, height: 24, mr: 2, ml:0, bgcolor: '#959595' }}></Avatar> }
-                                        sx={{textTransform: 'none', borderRadius: '20px', backgroundColor: "#303030"}}
+                                        startIcon={<Avatar sx={{ width: 24, height: 24, mr: 2, ml: 0, bgcolor: '#959595' }}></Avatar>}
+                                        sx={{ textTransform: 'none', borderRadius: '20px', backgroundColor: "#303030" }}
                                     >
-                                        <Box sx={{mr: 2}}>
+                                        <Box sx={{ mr: 2 }}>
                                             {this.props.usernameTamp}
                                         </Box>
                                     </Button>
+                                    {/* <Button onClick={this.handleClickDrawer}>
+                                        {this.props.usernameTamp}
+                                    </Button> */}
+                                    <Drawer
+                                        open={this.state.opendrawer}
+                                        onClose={this.handleClickDrawer}
+                                        direction='right'
+                                        className='drawer_container'
+                                        style={{ backgroundColor: '#303030' }}
+                                        size={384}
+                                    >
+                                        <div className='drawer_container_in'>
+                                            <div className='drawer_avatar'>
+                                                <div>
+                                                    <Avatar sx={{ width: 100, height: 100, bgcolor: '#545454' }}></Avatar>
+                                                </div>
+                                                <div className='drawer_avatar_name'>
+                                                    {this.props.usernameTamp}
+                                                </div>
+                                            </div>
+                                            <div className='drawer_links_container'>
+                                                <div className='drawer_link'>
+                                                    <ArrowForwardIcon /> My Posts
+                                                </div>
+                                                <div className='drawer_link'>
+                                                    <FavoriteIcon /> Liked Posts
+                                                </div>
+                                                <div className='drawer_link'>
+                                                    <BookmarkIcon /> Saved Posts
+                                                </div>
+                                            </div>
+                                            <div className='drawer_settings'>
+                                                <div className='drawer_link_settings'>
+                                                    <SettingsIcon /> Settings
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Drawer>
                                 </Box>
                                 <Menu
                                     id="basic-menu"
