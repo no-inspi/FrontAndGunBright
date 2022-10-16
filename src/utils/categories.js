@@ -1,1 +1,1 @@
-export const categories = ["Crypto", "Car", "NFT", "Stocks", "Politics", "Ecology", "DevOps", "DevOps", "DevOps", "DevOps", "DevOps", "DevOps"];
+export const categories = ["Crypto", "Car", "NFT", "Stocks", "Politics", "Ecology", "DevOps", "DevOps", "DevOps", "DevOps", "DevOps", "DevOps", "DevOps"];

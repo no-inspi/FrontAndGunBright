@@ -200,3 +200,14 @@
     font-weight: 600;
     letter-spacing: 1px;
 }
+
+.notifications_number {
+    position: absolute;
+    top: -8px;
+    right: -13px;
+    color: #303030;
+    border-radius: 50%;
+    padding: 3px 8px;
+    background: white;
+    font-size: 12px;
+}

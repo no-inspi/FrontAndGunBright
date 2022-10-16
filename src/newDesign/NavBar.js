@@ -15,6 +15,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { alpha, styled } from "@mui/material/styles";
 import InputBase from '@mui/material/InputBase';
+import Badge from '@mui/material/Badge';
 
 // icons material
 import SearchIcon from '@mui/icons-material/Search';
@@ -28,6 +29,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import SettingsIcon from '@mui/icons-material/Settings';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 
 import { categories } from '../utils/categories';
@@ -185,6 +187,14 @@ class NavBar extends Component {
                                             </Box>
                                         </IconButton>
                                     </Tooltip> */}
+                                    <Box style={{position: "relative"}} sx={{mr: 2}}>
+                                        <Avatar sx={{ bgcolor: "#303030", cursor: "pointer"}} className="notifications_icon">
+                                                <NotificationsIcon />
+                                        </Avatar>
+                                        <div className='notifications_number'>
+                                            4
+                                        </div>
+                                    </Box>
                                     <Button
                                         id="demo-customized-button"
                                         // aria-controls={this.state.open ? 'account-menu' : undefined}
