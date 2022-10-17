@@ -69,29 +69,6 @@ const Home = () => {
 
     const alert = useAlert()
 
-
-    // constructor({ gun, alert }) {
-    //     super()
-    //     this.gun = gun;
-    //     this.userG = gun.user().recall({ sessionStorage: true })
-    //     this.colorStr = ['danger', 'success', 'info']
-    //     this.alert = alert;
-
-
-    //     this.state = {
-    //         message: '',
-    //         post: [],
-    //         connected: false,
-    //         listBoolComment: [],
-    //         listStrComment: [],
-    //         usernameTamp: "",
-    //     };
-    //     // console.log(this.gun.get('users').map());
-
-
-    //     // console.log("userG:", this.userG)
-    // }
-
     useEffect(() => {
         const el = document.querySelector(".loader-container");
         if (el) {

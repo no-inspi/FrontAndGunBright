@@ -43,6 +43,13 @@
     font-weight: 450;
     line-height: 37.95px;
     align-items: center;
+    cursor: pointer;
+
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    transition-duration: 0.3s;
+    transition-property: transform;
 }
 
 .drawer_link_settings {
@@ -53,10 +60,28 @@
     font-weight: 450;
     line-height: 25.3px;
     align-items: center;
+    cursor: pointer;
+
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+
+.drawer_link_settings:hover,.drawer_link_settings:focus, .drawer_link_settings:active {
+    transform: scale(1.05);
+}  
+
+.drawer_link:hover,.drawer_link:focus, .drawer_link:active {
+    transform: scale(1.05);
 }
 
 
 .drawer_settings {
     /* bottom: 0; */
     margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

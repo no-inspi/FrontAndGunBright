@@ -30,6 +30,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 
 import { categories } from '../utils/categories';
@@ -40,6 +41,7 @@ import Drawer from 'react-modern-drawer'
 
 //import styles 👇
 import 'react-modern-drawer/dist/index.css'
+
 
 
 const BootstrapButton = styled(Button)({
@@ -121,6 +123,17 @@ class NavBar extends Component {
 
 
     render() {
+        const notifications = [
+            {
+                'description': 'une petite description de la notif numero 1'
+            },
+            {
+                'description': 'une petite description de la notif numero 2'
+            },
+            {
+                'description': 'une description de la notif numero 3'
+            }
+        ]
         return (
             <div className="top__header">
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', ml: 10, mr: 10 }}>
@@ -173,20 +186,6 @@ class NavBar extends Component {
                         {this.props.connected ?
                             <Box>
                                 <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                                    {/* <Tooltip title={this.props.usernameTamp.toUpperCase()}>
-                                        <IconButton
-                                            onClick={this.handleClick}
-                                            size="small"
-                                            sx={{ ml: 2 }}
-                                            aria-controls={this.state.open ? 'account-menu' : undefined}
-                                            aria-haspopup="true"
-                                            aria-expanded={this.state.open ? 'true' : undefined}
-                                        >
-                                            <Box className="">
-                                                {this.props.usernameTamp.charAt(0).toUpperCase()}
-                                            </Box>
-                                        </IconButton>
-                                    </Tooltip> */}
                                     <Box style={{position: "relative"}} sx={{mr: 2}}>
                                         <Avatar sx={{ bgcolor: "#303030", cursor: "pointer"}} className="notifications_icon">
                                                 <NotificationsIcon />
@@ -197,9 +196,6 @@ class NavBar extends Component {
                                     </Box>
                                     <Button
                                         id="demo-customized-button"
-                                        // aria-controls={this.state.open ? 'account-menu' : undefined}
-                                        // aria-haspopup="true"
-                                        // aria-expanded={this.state.open ? 'true' : undefined}
                                         variant="contained"
                                         disableElevation
                                         onClick={this.handleClickDrawer}
@@ -211,9 +207,6 @@ class NavBar extends Component {
                                             {this.props.usernameTamp}
                                         </Box>
                                     </Button>
-                                    {/* <Button onClick={this.handleClickDrawer}>
-                                        {this.props.usernameTamp}
-                                    </Button> */}
                                     <Drawer
                                         open={this.state.opendrawer}
                                         onClose={this.handleClickDrawer}
@@ -245,6 +238,9 @@ class NavBar extends Component {
                                             <div className='drawer_settings'>
                                                 <div className='drawer_link_settings'>
                                                     <SettingsIcon /> Settings
+                                                </div>
+                                                <div className='drawer_link_settings' onClick={this.disconnected}>
+                                                    <ExitToAppIcon /> Déconnexion
                                                 </div>
                                             </div>
                                         </div>
@@ -317,25 +313,6 @@ class NavBar extends Component {
                             :
                             (
                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                                    {/* <Button variant="contained" startIcon={<LoginIcon />}>
-                            SignIn
-                        </Button>
-                        <Button variant="contained" startIcon={<AddBoxIcon />} sx={{marginLeft: '20px'}}>
-                            SignUp
-                        </Button> */}
-                                    {/* <ButtonGroup variant="outlined" aria-label="text button group">
-                                        <Button sx={{ textTransform: 'none', borderRadius: 20, borderColor: 'transparent', backgroundColor: '#303030', color: 'white' }}>
-                                            <Link to="/login">
-                                                Login
-                                            </Link>
-                                        </Button>
-                                        <Button sx={{ textTransform: 'none', borderRadius: 20, borderColor: 'transparent', backgroundColor: '#303030', color: 'white' }}>
-                                            <Link to="/signup">
-                                                SignUp
-                                            </Link>
-                                        </Button>
-                                    </ButtonGroup>
-                                     */}
                                     <BootstrapButton variant="contained" sx={{ mr: 2 }}>
                                         <Link to="/login">
                                             Login
@@ -350,6 +327,15 @@ class NavBar extends Component {
                             )}
                     </Box>
                 </Box>
+                <div className='notification_div_fixed'>
+                    {notifications.map((notification, i) => {
+                        return (
+                            <div className='notification_div_container'>
+                                {notification.description}
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         )
     }

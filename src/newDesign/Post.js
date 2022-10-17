@@ -207,7 +207,7 @@ const Post = (props) => {
                             onChange={onChange}
                             maxNumber={maxNumber}
                             dataURLKey="data_url"
-                            acceptType={["jpg"]}
+                            acceptType={["jpg","png"]}
                         >
                             {({
                                 imageList,
