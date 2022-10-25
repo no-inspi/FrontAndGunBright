@@ -1,8 +1,22 @@
 .login-container {
     width: 100vw;
     height: 100vh;
-    /* background-image: url("../images/bg2.jpg"); */
-    background-image: linear-gradient(to right, rgba(108, 95, 252, 0.6) 0%, #05c3fb91 100%), url("../images/bg2.jpg");
+    background-image: url("../images/gradientablue.png");
+    /* background-image: linear-gradient(to right, rgba(108, 95, 252, 0.6) 0%, #05c3fb91 100%), url("../images/gradientablue.png"); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.signup-container {
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../images/gradienta.png");
+    /* background-image: linear-gradient(to right, rgba(108, 95, 252, 0.6) 0%, #05c3fb91 100%), url("../images/gradientablue.png"); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

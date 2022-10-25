@@ -18,6 +18,9 @@ import AdminLogin from './newDesign/AdminPanel/AdminLogin';
 //Test
 import ImageUploader from './newDesign/ImageUploader';
 
+//users
+import MyPost from './newDesign/myPost/MyPost';
+
 const gun = Gun()
 
 
@@ -34,6 +37,7 @@ function App() {
         <Route path="/admin" element={<AdminHome alert={alert}/>}/>
         <Route path="/admin/login" element={<AdminLogin alert={alert}/>}/>
         <Route path="/admin/test" element={<ImageUploader alert={alert}/>}/>
+        <Route path="/user/mypost" element={<MyPost alert={alert}/>}/>
       </Routes>
     </div>
     

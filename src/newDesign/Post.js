@@ -148,7 +148,7 @@ const Post = (props) => {
 
 
     return (
-        <div style={{ width: '50%' }} className="card-post">
+        <div style={{ width: '40%' }} className="card-post">
             {/* <div
                 style={{ border: "1px solid black", minHeight: "6em", cursor: "text" }}
                 onClick={focusEditor}

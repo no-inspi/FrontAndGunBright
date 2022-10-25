@@ -510,7 +510,7 @@ const Posts = (props) => {
                 fullWidth={true}
                 maxWidth={"lg"}
             >
-                <DialogContent>
+                <DialogContent sx={{backgroundColor: "white"}}>
                     <Box sx={{ width: "100%", height: "100%" }}>
                         <Grid container columnSpacing={0}>
                             <Grid item xs={7} sx={{ backgroundColor: "white" }}>

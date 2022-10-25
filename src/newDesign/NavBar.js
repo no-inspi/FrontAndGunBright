@@ -32,6 +32,8 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
+import logobraight from '../images/logoBcouleur.png';
+
 
 import { categories } from '../utils/categories';
 import { BsBorderWidth } from 'react-icons/bs';
@@ -79,6 +81,8 @@ class NavBar extends Component {
             open: null,
             opendrawer: false,
             usernameTampFirstLetter: '',
+            displayNotificationsOverlay: false,
+            colorNotif: "#303030",
         };
     }
 
@@ -109,7 +113,7 @@ class NavBar extends Component {
         this.props.setConnectedFromChild(false)
         // this.alert.success('User correctly disconnected')
         window.sessionStorage.removeItem("username")
-        window.location.reload()
+        window.location.href('/')
     }
 
     updateCategorie = (event) => {
@@ -119,13 +123,21 @@ class NavBar extends Component {
 
     }
 
+    displayNotificationsOverlay = () => {
+        var color = "#4599FF"
+        if (this.state.colorNotif==color) {
+            color = "#303030"
+        }
+        this.setState({displayNotificationsOverlay: !this.state.displayNotificationsOverlay, colorNotif: color})
+    }
+
 
 
 
     render() {
         const notifications = [
             {
-                'description': 'une petite description de la notif numero 1'
+                'description': 'une plus grande description de la notif numero 1 pour voir comment ca se met en forme'
             },
             {
                 'description': 'une petite description de la notif numero 2'
@@ -138,9 +150,10 @@ class NavBar extends Component {
             <div className="top__header">
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', ml: 10, mr: 10 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center' }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', letterSpacing: '1px', fontWeight: '600', color: 'white', fontSize: '40px' }}>
-                            Braight
-
+                        <Box sx={{ display: 'flex', alignItems: 'center', letterSpacing: '1px', fontWeight: '600', color: 'white', fontSize: '40px', cursor: 'pointer' }}>
+                            <Link to="/">
+                                Braight 
+                            </Link>
                         </Box>
                         <Box sx={{ color: '#808080', fontSize: "12px" }}>
                             Le réseau de l'influence anonyme
@@ -186,12 +199,12 @@ class NavBar extends Component {
                         {this.props.connected ?
                             <Box>
                                 <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                                    <Box style={{position: "relative"}} sx={{mr: 2}}>
-                                        <Avatar sx={{ bgcolor: "#303030", cursor: "pointer"}} className="notifications_icon">
+                                    <Box style={{position: "relative"}} sx={{mr: 2}} onClick={this.displayNotificationsOverlay} className="notification_animated">
+                                        <Avatar sx={{ bgcolor: this.state.colorNotif, cursor: "pointer"}} className="notifications_icon">
                                                 <NotificationsIcon />
                                         </Avatar>
                                         <div className='notifications_number'>
-                                            4
+                                            {notifications.length}
                                         </div>
                                     </Box>
                                     <Button
@@ -226,7 +239,9 @@ class NavBar extends Component {
                                             </div>
                                             <div className='drawer_links_container'>
                                                 <div className='drawer_link'>
-                                                    <ArrowForwardIcon /> My Posts
+                                                    <Link to="/user/mypost">
+                                                        <ArrowForwardIcon /> My Posts
+                                                    </Link>
                                                 </div>
                                                 <div className='drawer_link'>
                                                     <FavoriteIcon /> Liked Posts
@@ -327,15 +342,28 @@ class NavBar extends Component {
                             )}
                     </Box>
                 </Box>
-                <div className='notification_div_fixed'>
+                {this.state.displayNotificationsOverlay ? (
+                    <div className='notification_div_fixed'>
+                    <div className='notification_div_fixed_title'>
+                        Notifications
+                    </div>
+                    <div className='notification_div_fixed_subtitle_container'>
+                        <div className='notification_div_fixed_subtitle_nonlu'>Non lu</div>
+                        <div className='notification_div_fixed_subtitle_voirtout'>Voir tout</div>
+                    </div>
                     {notifications.map((notification, i) => {
                         return (
                             <div className='notification_div_container'>
-                                {notification.description}
+                                <div className='notification_div_subcontainer'>
+                                    <img src={logobraight} className="notifications_logobraight"/>
+                                    {notification.description}
+                                </div>
                             </div>
                         )
                     })}
                 </div>
+                ): ''}
+                
             </div>
         )
     }

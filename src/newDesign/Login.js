@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import "../css/login.css";
+import "../css/loginv2.css"
 
 import axios from 'axios'
 
@@ -16,6 +17,8 @@ import Typography from '@mui/material/Typography';
 import PersonIcon from '@mui/icons-material/Person';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import PasswordIcon from '@mui/icons-material/Password';
+
+import Input from '@mui/material/Input';
 
 import sha256 from 'crypto-js/sha256';
 
@@ -121,7 +124,7 @@ class Login extends Component {
                     </div>
                 ) : (
                     <div>
-                        <div className='login-title'>
+                        {/* <div className='login-title'>
                             <Link to="/">Bright</Link>
                         </div>
                         <div className="login-card">
@@ -177,6 +180,48 @@ class Login extends Component {
                             <Box sx={{ textAlign: 'center', width: '100%', marginTop: '10px' }}>
                                 <Link to="/signup" style={{ color: "#6c5ffc" }}>Create an account !</Link>
                             </Box>
+                        </div> */}
+                        <div className='loginv2_container'>
+                            <div className='loginv2_subcontainer'>
+                                <div className='loginv2_title'> 
+                                    <span className='title_braight'>Braight</span>
+                                    <span className='desc_braight'>Le réseau social de l'influence anonyme</span> 
+                                </div>
+                                <div className='loginv2_card_container'>
+                                    <div className='button_container'>
+                                        <button className='login_button button_white'>Sign in</button>
+                                        <Link to="/signup">
+                                            <button className='login_button button_border_white'>Create an account</button>
+                                        </Link>
+                                    </div>
+                                    <div className='input_container'>
+                                        <Input 
+                                            placeholder="Username" 
+                                            sx={{
+                                                    color: 'white',
+                                                    ':before': {borderBottomColor: 'white'}
+                                                }} 
+                                            color="primary"
+                                            autoComplete='off'
+                                            onChange={this.onUsernameChange}
+                                        />
+                                        <Input 
+                                            placeholder="Password" 
+                                            sx={{
+                                                    color: 'white',
+                                                    ':before': {borderBottomColor: 'white'}
+                                                }} 
+                                            color="primary"
+                                            type="password"
+                                            onChange={this.onPasswordChange}
+                                        />
+                                    </div>
+                                    <div className=''>
+                                        <button className='login_button button_white gotobraight_button' onClick={this.signin}> Go to Braight </button>
+                                    </div>
+                                </div>
+                                <div> </div>
+                            </div>
                         </div>
                     </div>
                 )}
