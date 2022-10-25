@@ -1,5 +1,5 @@
 :root {
-    --main-width: calc(30px*13);
+    --main-width: calc(20px*13);
 }
 
 .categorie-container {
@@ -48,6 +48,26 @@
     padding-bottom: 20px;
     border-bottom: 3px solid white;
     color: #959595;
+    height: 200px;
+    overflow-y: scroll !important;
+}
+
+.categorie_description::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+	background-color: transparent;
+}
+
+.categorie_description::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: transparent;
+}
+
+.categorie_description::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #505050;
 }
 
 .categorie_list_title_container {

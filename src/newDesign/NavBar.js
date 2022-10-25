@@ -167,7 +167,7 @@ class NavBar extends Component {
                                     disablePortal
                                     id="combo-box-demo"
                                     options={this.category.map((option) => option)}
-                                    sx={{ width: 800, height: 'auto', color: 'white' }}
+                                    sx={{ width: '45vw', height: 'auto', color: 'white' }}
                                     onChange={this.updateCategorie}
                                     renderInput={(params) => (
 
