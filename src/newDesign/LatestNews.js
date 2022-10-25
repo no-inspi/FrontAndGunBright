@@ -61,7 +61,7 @@ const LatestNews = () => {
     const settings = {
         infinite: true,
         speed: 200,
-        slidesToShow: 2,
+        slidesToShow: 1,
         slidesToScroll: 1,
         arrows: true,
         centerPadding: '20px',
@@ -83,7 +83,7 @@ const LatestNews = () => {
                 </Box>
                 <Slider {...settings} className="news_slider">
                     <div>
-                        <div className="news_card">Lorem ipsum dolor sit amet consectetur adipisicing elit</div>
+                        <div className="news_card">Lorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elit</div>
                     </div>
                     <div>
                         <div className="news_card">Maxime mollitia,molestiae</div>

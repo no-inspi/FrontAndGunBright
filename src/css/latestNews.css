@@ -29,6 +29,25 @@
     text-align: left;
     font-weight: 500;
     margin-right: 50px;
+    overflow-y: scroll !important;
+}
+
+.news_card::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+	background-color: transparent;
+}
+
+.news_card::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: transparent;
+}
+
+.news_card::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #505050;
 }
 
 .news_slider {
