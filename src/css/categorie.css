@@ -1,3 +1,7 @@
+:root {
+    --main-width: calc(30px*13);
+}
+
 .categorie-container {
     box-shadow: 0 4px 25px 0 rgb(168 180 208 / 10%);
     border-radius: 7px;
@@ -12,6 +16,7 @@
     flex-direction: column;
     gap: 20px;
     height: calc(100% - 90px);
+    top: 90px;
 }
 
 .categorie_title {
@@ -65,14 +70,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
     font-size: 1.2rem;
+    gap: 10px;
 }
 
 .categorie_scrollable {
     margin-top: 20px;
     position: relative;
-    height: 60%;
+    height: var(--main-width);
     overflow-y: scroll !important;
 }
 

@@ -38,7 +38,7 @@ export default function CategorieV2(props) {
 
 
     return (
-        <Box sx={{ position: 'fixed', width: "22%", left: 0, top: "90px", bottom: 0 }} className="categorie_container">
+        <Box sx={{ position: 'fixed', width: "22%", left: 0 }} className="categorie_container">
             <Box className="categorie_title">
                 {categorieBool.map((item, index) => (
                     item ? categorieDisplay[index] : ''
