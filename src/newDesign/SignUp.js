@@ -19,6 +19,11 @@ import PasswordIcon from '@mui/icons-material/Password';
 
 import Input from '@mui/material/Input';
 
+import { Dayjs } from 'dayjs';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 class SignUp extends Component {
     constructor({ gun, alert }) {
         super()
@@ -32,9 +37,11 @@ class SignUp extends Component {
             username: '',
             password: '',
             confirmPassword: '',
-            SignIn: true,
             usernameTamp: "",
-            userGunObject: "",
+            datejsobj: null,
+            formEmail: '',
+            firstName: '',
+            lastName: '',
         };
 
     }
@@ -50,8 +57,12 @@ class SignUp extends Component {
         const usernameSignup = this.state.username;
         const passwordSignup = this.state.password;
         const confirmPasswordSignup = this.state.confirmPassword;
+        const firstName = this.state.firstName;
+        const lastName = this.state.lastName;
+        const email = this.state.formEmail;
+        const dateobject = this.state.datejsobj;
 
-        if (usernameSignup && (passwordSignup) && confirmPasswordSignup) {
+        if (usernameSignup && (passwordSignup) && confirmPasswordSignup && firstName && lastName && email && dateobject) {
             if (passwordSignup == confirmPasswordSignup) {
                 axios
                     .get("http://127.0.0.1:8000/create_user?username=" + usernameSignup + "&password=" + sha256(passwordSignup).toString())
@@ -78,44 +89,26 @@ class SignUp extends Component {
         else {
             this.alert.error('You need to fill all fields')
         }
+    }
 
+    onFirstNameChange = (event) => {
+        //    this.state.username = event.target.value
+        this.setState({ firstName: event.target.value });
+    }
 
-        // if (this.state.username && this.state.password && this.state.confirmPassword) {
-        //     // console.log("singup test:",this.state.username,this.state.password,this.state.confirmPassword)
-        //     if (passwordSignup!=confirmPasswordSignup) {
-        //         this.alert.error('Passwords are not the same, please retry')
-        //     } else {
-        //         var userInfo = {
-        //             username: usernameSignup
-        //         };
-
-        //         var user = this.gun.get('users').get(userInfo.username).put(userInfo);
-
-        //         this.userG.create(usernameSignup, passwordSignup, function (ack) {
-        //             // console.log(ack)
-        //             if (ack.err) {
-        //                 self.alert.error(ack.err)
-        //             }
-        //             else {
-        //                 axios
-        //                 .get("http://127.0.0.1:8000/create_user?username=" + usernameSignup)
-        //                 .then(response => 
-        //                    console.log(response)
-        //                 );
-        //                 self.alert.success('User correctly created ! Welcome '+usernameSignup+' !')
-        //                 self.setState({username :'',password: '', confirmPassword: ''})
-        //                 window.location = "http://localhost:3000/post"
-        //             }
-        //         })
-        //     }
-
-
-        // }
+    onLastNameChange = (event) => {
+        //    this.state.username = event.target.value
+        this.setState({ lastName: event.target.value });
     }
 
     onUsernameChange = (event) => {
         //    this.state.username = event.target.value
         this.setState({ username: event.target.value });
+    }
+
+    onFormEmailChange = (event) => {
+        //    this.state.username = event.target.value
+        this.setState({ formEmail: event.target.value });
     }
 
     onPasswordChange = (event) => {
@@ -214,7 +207,7 @@ class SignUp extends Component {
                                     <button className='login_button button_border_white'>Sign in</button>
                                 </Link>
                                 <button className='login_button button_white'>Create an account</button>
-                                
+
                             </div>
                             <div className='input_container'>
                                 <Input
@@ -224,7 +217,7 @@ class SignUp extends Component {
                                         ':before': { borderBottomColor: 'white' }
                                     }}
                                     color="primary"
-                                    // onChange={this.onUsernameChange}
+                                    onChange={this.onFirstNameChange}
                                 />
                                 <Input
                                     placeholder="Last name"
@@ -233,7 +226,48 @@ class SignUp extends Component {
                                         ':before': { borderBottomColor: 'white' }
                                     }}
                                     color="primary"
-                                    // onChange={this.onUsernameChange}
+                                    onChange={this.onLastNameChange}
+                                />
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DatePicker
+                                        value={this.state.datejsobj}
+                                        onChange={(newValue) => {
+                                            this.setState({ datejsobj: newValue });
+                                            // setValue(newValue);
+                                        }}
+                                        renderInput={(params) => <Input
+                                            sx={{
+                                                color: 'white',
+                                                ':before': { borderBottomColor: 'white' }
+                                            }}
+                                            color="primary"
+                                            {...params}
+                                            inputProps={{
+                                                ...params.inputprops,
+                                                placeholder: "Your birth date (mm/dd/yyyy)"
+                                            }}
+                                        />}
+                                    />
+                                </LocalizationProvider>
+                                <Input
+                                    placeholder="Username"
+                                    sx={{
+                                        color: 'white',
+                                        ':before': { borderBottomColor: 'white' }
+                                    }}
+                                    color="primary"
+                                    type="text"
+                                    onChange={this.onUsernameChange}
+                                />
+                                <Input
+                                    placeholder="Email Address"
+                                    sx={{
+                                        color: 'white',
+                                        ':before': { borderBottomColor: 'white' }
+                                    }}
+                                    color="primary"
+                                    type="email"
+                                    onChange={this.onFormEmailChange}
                                 />
                                 <Input
                                     placeholder="Password"
@@ -245,9 +279,20 @@ class SignUp extends Component {
                                     type="password"
                                     onChange={this.onPasswordChange}
                                 />
+                                <Input
+                                    placeholder="Confirm Password"
+                                    sx={{
+                                        color: 'white',
+                                        ':before': { borderBottomColor: 'white' }
+                                    }}
+                                    color="primary"
+                                    type="password"
+                                    onChange={this.onPasswordConfirmChange}
+                                />
+
                             </div>
                             <div className=''>
-                                <button className='login_button button_white gotobraight_button' onClick={this.signin}> Enter Braight </button>
+                                <button className='login_button button_white gotobraight_button' onClick={this.signup}> Enter Braight </button>
                             </div>
                         </div>
                         <div> </div>

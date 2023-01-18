@@ -253,10 +253,12 @@ const Posts = (props) => {
     }
 
     const displayComSection = (index) => {
-        let table_tmp = listBoolComment
+
+        let table_tmp = [...listBoolComment]
         table_tmp[index] = !table_tmp[index]
-        // this.setState({ listBoolComment: table_tmp })
         setlistBoolComment(table_tmp)
+        console.log(index, table_tmp)
+
     }
 
     const changeComment = (event) => {
@@ -321,6 +323,9 @@ const Posts = (props) => {
 
     }
 
+    const test = (id_gun) => {
+        console.log(id_gun)
+    }
 
 
     return (
@@ -333,172 +338,131 @@ const Posts = (props) => {
                 </Box>) : (
                 props.post.map((item, key) => {
                     return (
-                        <InView className='post_container' as="div" threshold={0.5} triggerOnce={true} onChange={(inView, entry) => inView ? PostinView(inView, key, item.id_gun) : ""}>
-                            <div className='post_title_container'>
-                                <div className='post_title'>
-                                    {item.title}
-                                </div>
-                                <div className='post_date'>
-                                    {shortenDate(item.since)}
-                                </div>
-                            </div>
-                            <div className='post_categories_container'>
-                                {item.categories_list.map((itemBis, index) => {
-                                    return (
-                                        <div className='post_categories' style={{ backgroundColor: COLORSCATEGORIE[index] }}>
-                                            #{itemBis.name}
-                                        </div>
-
-                                    )
-                                })}
-                            </div>
-                            <div className='post_content_container'>
-                                {item.content}
-                                
-                                {item.img_list.length > 0 ? (
-                                    <div style={{marginTop: 15}}>
-                                        <img src={item.img_list[0].nomimg} />
+                        <>
+                            <InView className='post_container' as="div" threshold={0.5} triggerOnce={true} onChange={(inView, entry) => inView ? PostinView(inView, key, item.id_gun) : ""}>
+                                <div className='post_title_container'>
+                                    <div className='post_title'>
+                                        {item.title}
                                     </div>
-                                ) : null}
+                                    <div className='post_date'>
+                                        {shortenDate(item.since)}
+                                    </div>
+                                </div>
+                                <div className='post_categories_container'>
+                                    {item.categories_list.map((itemBis, index) => {
+                                        return (
+                                            <div className='post_categories' style={{ backgroundColor: COLORSCATEGORIE[index] }}>
+                                                #{itemBis.name}
+                                            </div>
+
+                                        )
+                                    })}
+                                </div>
+                                <div className='post_content_container'>
+                                    {item.content}
+
+                                    {item.img_list.length > 0 ? (
+                                        <div style={{ marginTop: 15 }}>
+                                            <img src={item.img_list[0].nomimg} />
+                                        </div>
+                                    ) : null}
+                                </div>
+
+                                <div className='post_icons_container'>
+                                    <Badge color="primary" badgeContent={item.like} showZero className="cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300">
+                                        {item.liked_bool ? (
+                                            <AiFillHeart
+                                                className=" icon-size-footer"
+                                                onClick={() => sendLike(item.id_gun, item.liked_bool, item.disliked_bool)}
+                                            />) : (
+                                            <AiOutlineHeart
+                                                className=" icon-size-footer"
+                                                onClick={() => sendLike(item.id_gun, item.liked_bool, item.disliked_bool)}
+                                            />
+                                        )
+                                        }
+                                    </Badge>
+                                    <Badge color="primary" badgeContent={item.dislike} showZero className="cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300">
+                                        {item.disliked_bool ? (
+                                            <IoIosHeartDislike
+                                                className="ml-5 icon-size-footer"
+                                                onClick={() => sendDislike(item.id_gun, item.liked_bool, item.disliked_bool)}
+                                            />
+                                        ) : (
+                                            <IoHeartDislikeOutline
+                                                className="ml-5 icon-size-footer"
+                                                onClick={() => sendDislike(item.id_gun, item.liked_bool, item.disliked_bool)}
+                                            />
+                                        )
+                                        }
+                                    </Badge>
+                                    <Badge color="primary" badgeContent={item.comments.length} showZero className="cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300">
+                                        {item.comment_bool ? (
+                                            <RiMessage3Fill
+                                                className="ml-5 icon-size-footer"
+                                                // onClick={() => handleClickOpen(item.comments, item.content, item.id_gun, item.categories_list, shortenDate(item.since))}
+                                                onClick={() => displayComSection(key)}
+                                            />
+                                        ) : (
+                                            <RiMessage3Line
+                                                className="ml-5 icon-size-footer"
+                                                // onClick={() => handleClickOpen(item.comments, item.content, item.id_gun, item.categories_list, shortenDate(item.since))}
+                                                onClick={() => displayComSection(key)}
+                                            />
+                                        )
+                                        }
+                                    </Badge>
+                                </div>
+                            </InView>
+                            {listBoolComment[key] ? (
+                                <>
+                            <div className='title_container_comment'>
+                                <div className='title_comments_title'>
+                                    Comments
+                                </div>
+                                <div className='title_comments_closebtn'>
+                                    Close Comments <CloseIcon style={{cursor: 'pointer'}} onClick={() => displayComSection(key)} />
+                                </div>
                             </div>
-
-                            <div className='post_icons_container'>
-                                <Badge color="primary" badgeContent={item.like} showZero className="cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300">
-                                    {item.liked_bool ? (
-                                        <AiFillHeart
-                                            className=" icon-size-footer"
-                                            onClick={() => sendLike(item.id_gun, item.liked_bool, item.disliked_bool)}
-                                        />) : (
-                                        <AiOutlineHeart
-                                            className=" icon-size-footer"
-                                            onClick={() => sendLike(item.id_gun, item.liked_bool, item.disliked_bool)}
-                                        />
-                                    )
-                                    }
-                                </Badge>
-                                <Badge color="primary" badgeContent={item.dislike} showZero className="cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300">
-                                    {item.disliked_bool ? (
-                                        <IoIosHeartDislike
-                                            className="ml-5 icon-size-footer"
-                                            onClick={() => sendDislike(item.id_gun, item.liked_bool, item.disliked_bool)}
-                                        />
-                                    ) : (
-                                        <IoHeartDislikeOutline
-                                            className="ml-5 icon-size-footer"
-                                            onClick={() => sendDislike(item.id_gun, item.liked_bool, item.disliked_bool)}
-                                        />
-                                    )
-                                    }
-                                </Badge>
-                                <Badge color="primary" badgeContent={item.comments.length} showZero className="cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300">
-                                    {item.comment_bool ? (
-                                        <RiMessage3Fill
-                                            className="ml-5 icon-size-footer"
-                                            onClick={() => handleClickOpen(item.comments, item.content, item.id_gun, item.categories_list, shortenDate(item.since))}
-                                        />
-                                    ) : (
-                                        <RiMessage3Line
-                                            className="ml-5 icon-size-footer"
-                                            onClick={() => handleClickOpen(item.comments, item.content, item.id_gun, item.categories_list, shortenDate(item.since))}
-                                        />
-                                    )
-                                    }
-                                </Badge>
+                            <div className='comments_section_display_container container_comment'>
+                                <div className='comments_section_display_pseudo'>
+                                    {window.sessionStorage.getItem('username')}
+                                </div>
+                                <div className='comments_section_display_input_send_comment'>
+                                    {/* <TextField placeholder='Your comments ..' onChange={changeComment} id="input-with-sx" variant="standard" sx={{ width: '100%' }} /> */}
+                                    <input value={modalCom} placeholder='Your comment ...' onChange={changeComment} onKeyPress={(e) => e.key === 'Enter' && sendComment(item.id_gun)} />
+                                </div>
                             </div>
-                        </InView>
-                        // <InView as="div" threshold={0.5} className='card-posts' triggerOnce={true} onChange={(inView, entry) => inView ? PostinView(inView, key, item.id_gun) : ""}>
-                        //     {/* <div className='card-posts' ref={setRefs}> */}
-                        //     <div className='card-body'>
-                        //         <div className='card-row'>
-                        //             {/* <Avatar sx={{ bgcolor: 'darkgreen' }}>P</Avatar> */}
-                        //             <div className='card-body-date'>
-                        //                 <div>
-                        //                     {item.categories_list.map((itemBis) => {
-                        //                         return (
-                        //                             <span>#{itemBis.name} </span>
-                        //                         )
-                        //                     })}
-
-                        //                 </div>
-                        //                 <div className='card-date'>{shortenDate(item.since)} {inView}</div>
-                        //             </div>
-                        //         </div>
-                        //         <div className='card-title'>
-                        //             <b>{item.title}</b>
-                        //         </div>
-                        //         <div className='card-body-content'>
-                        //             {listBoolPostDisplay[item.id_gun] ?
-                        //                 (item.content)
-                        //                 :
-                        //                 (item.content.length > 200 ?
-                        //                     (
-                        //                         <div>
-                        //                             {item.content.slice(0, 200)}
-                        //                             <a className='cursor-pointer text-blue-600' onClick={() => handlePostDisplay(item.id_gun)}>Voir plus</a>
-                        //                         </div>
-
-                        //                     )
-                        //                     : (
-                        //                         item.content
-                        //                     )
-                        //                 )}
-                        //         </div>
-                        //     </div>
-                        //     <div className='card-footer'>
-                        //         <div className='card-footer-liked'>
-                        //             <div>
-                        //                 {/* <Avatar sx={{ width: 24, height: 24, fontSize: 15, bgcolor: "orange" }}>H</Avatar> */}
-                        //             </div>
-                        //             <div className='ml-2' style={{ fontSize: "0.875rem", color: "#6e7687" }}>
-                        //                 Liked by {item.like} person
-                        //             </div>
-                        //         </div>
-                        //         <div className='card-footer-icons'>
-                        //             <Badge color="primary" badgeContent={item.like} showZero className="cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300">
-                        //                 {item.liked_bool ? (
-                        //                     <AiFillHeart
-                        //                         className=" icon-size-footer"
-                        //                         onClick={() => sendLike(item.id_gun, item.liked_bool, item.disliked_bool)}
-                        //                     />) : (
-                        //                     <AiOutlineHeart
-                        //                         className=" icon-size-footer"
-                        //                         onClick={() => sendLike(item.id_gun, item.liked_bool, item.disliked_bool)}
-                        //                     />
-                        //                 )
-                        //                 }
-                        //             </Badge>
-                        //             <Badge color="primary" badgeContent={item.dislike} showZero className="cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300">
-                        //                 {item.disliked_bool ? (
-                        //                     <IoIosHeartDislike
-                        //                         className="ml-5 icon-size-footer"
-                        //                         onClick={() => sendDislike(item.id_gun, item.liked_bool, item.disliked_bool)}
-                        //                     />
-                        //                 ) : (
-                        //                     <IoHeartDislikeOutline
-                        //                         className="ml-5 icon-size-footer"
-                        //                         onClick={() => sendDislike(item.id_gun, item.liked_bool, item.disliked_bool)}
-                        //                     />
-                        //                 )
-                        //                 }
-                        //             </Badge>
-                        //             <Badge color="primary" badgeContent={item.comments.length} showZero className="cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-110 duration-300">
-                        //                 {item.comment_bool ? (
-                        //                     <RiMessage3Fill
-                        //                         className="ml-5 icon-size-footer"
-                        //                         onClick={() => handleClickOpen(item.comments, item.content, item.id_gun, item.categories_list, shortenDate(item.since))}
-                        //                     />
-                        //                 ) : (
-                        //                     <RiMessage3Line
-                        //                         className="ml-5 icon-size-footer"
-                        //                         onClick={() => handleClickOpen(item.comments, item.content, item.id_gun, item.categories_list, shortenDate(item.since))}
-                        //                     />
-                        //                 )
-                        //                 }
-                        //             </Badge>
-                        //         </div>
-                        //     </div>
-                        //     {/* </div> */}
-                        // </InView>
+                            {item.comments.length > 0 ? (
+                                item.comments.map((comment) => {
+                                    return (
+                                        <div className='comments_section_display_container_msg container_comment'>
+                                            <div className='comments_flexbox'>
+                                                <div className='comments_section_display_pseudo'>
+                                                    {comment.username}
+                                                </div>
+                                                <div className='comments_section_display_content'>
+                                                    {shortenDate(comment.since)}
+                                                </div>
+                                            </div>
+                                            <div className='comment_content'>
+                                                {comment.content}
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            )
+                                :
+                                (
+                                    <div style={{ color: 'white', marginTop: '9px' }}>
+                                        Be the first to comment on this post
+                                    </div>
+                                )
+                            }
+                            </>
+                            )
+                            : null}
+                        </>
                     )
                 })
             )}
@@ -510,7 +474,7 @@ const Posts = (props) => {
                 fullWidth={true}
                 maxWidth={"lg"}
             >
-                <DialogContent sx={{backgroundColor: "white"}}>
+                <DialogContent sx={{ backgroundColor: "white" }}>
                     <Box sx={{ width: "100%", height: "100%" }}>
                         <Grid container columnSpacing={0}>
                             <Grid item xs={7} sx={{ backgroundColor: "white" }}>

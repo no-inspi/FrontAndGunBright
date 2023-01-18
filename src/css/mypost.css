@@ -1,0 +1,17 @@
+.stats_post_container {
+    background-color: #1d1d1d;
+    border-radius: 7px;
+    height: 100%;
+    padding: 20px;
+    color: white;
+    max-width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.title_metrics {
+    text-transform: uppercase;
+}

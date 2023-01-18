@@ -1,0 +1,196 @@
+/* title */
+.header_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 50px;
+}
+
+.title_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: white;
+    align-items: flex-start;
+}
+
+.gotoapp {
+    color: black;
+    border-radius: 20px;
+    background-color: white;
+    padding: 10px 20px;
+
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    overflow: hidden;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform, color, background-color;
+    transition-property: transform, color, background-color;
+}
+
+.gotoapp:hover,
+.gotoapp:focus,
+.gotoapp:active {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    background-color: #F76B3F;
+    color: white;
+}
+
+.title_title {
+    font-size: 60px;
+    font-weight: 900;
+    line-height: 76px;
+}
+
+.title_description {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 21px;
+}
+
+/* header */
+.header1_container {
+    padding: 50px;
+}
+
+.header1_bigtext {
+    background: linear-gradient(259.09deg, #F76B3F 3.86%, #E6842A 101.47%, #B1F73F 101.48%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 61px;
+}
+
+.header1_text {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: white;
+    flex-shrink: 2;
+}
+
+.borderBottomWhite {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border-bottom: 1px solid white;
+    align-items: center;
+    gap: 42px;
+    padding-bottom: 50px;
+}
+
+/* header2 */
+.header2_container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.header2_title_effect {
+    background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: white;
+}
+
+/* header 3 */
+.header3_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+
+    margin-top: 50px;
+    color: white;
+    text-align: center;
+    gap: 50px;
+}
+
+.header3_card {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+}
+
+.header3_title {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24.2px;
+    text-transform: uppercase;
+}
+
+.icon_card {
+    font-size: 25px;
+}
+
+/* button join us */
+.button_joinus_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 100px;
+}
+
+.button_joinus {
+    background: white;
+    border-radius: 20px;
+    padding: 14px 295px;
+    color: black;
+    font-weight: 700;
+    font-size: 30px;
+
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    overflow: hidden;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform, color, background-color;
+    transition-property: transform, color, background-color;
+}
+
+.button_joinus:hover,
+.button_joinus:focus,
+.button_joinus:active {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    background-color: #F76B3F;
+    color: white;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.footer_text {
+    font-weight: 400;
+    font-size: 14px;
+}

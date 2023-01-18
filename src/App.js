@@ -21,6 +21,9 @@ import ImageUploader from './newDesign/ImageUploader';
 //users
 import MyPost from './newDesign/myPost/MyPost';
 
+// LandingPage
+import LandingPage from './newDesign/Landing/landingPage'
+
 const gun = Gun()
 
 
@@ -31,6 +34,7 @@ function App() {
       {/* <Home id="mainHome" gun={gun} alert={alert}/> */}
       <Routes>
         <Route path="/" element={<Home2 gun={gun} alert={alert}/>} />
+        <Route path="/home" element={<LandingPage gun={gun} alert={alert}/>} />
         {/* <Route path="/" element={<Home id="mainHome" gun={gun} alert={alert}/>} /> */}
         <Route path="/login" element={<Login gun={gun} alert={alert}/>}/>
         <Route path="/signup" element={<SignUp gun={gun} alert={alert}/>}/>

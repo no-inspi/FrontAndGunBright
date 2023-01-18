@@ -66,7 +66,7 @@ const LatestNews = () => {
         arrows: true,
         centerPadding: '20px',
         centerMode: true,
-        autoplay: true,
+        autoplay: false,
         speed: 1000,
         autoplaySpeed: 5000,
         cssEase: "ease-in-out",
