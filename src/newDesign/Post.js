@@ -7,23 +7,37 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 
+import Modal from '@mui/material/Modal';
+
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-import { styled } from '@mui/material/styles';
+import { alpha, styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
+import Typography from '@mui/material/Typography';
+import Fade from '@mui/material/Fade';
+import Backdrop from '@mui/material/Backdrop';
+import Select from '@mui/material/Select';
+import NativeSelect from '@mui/material/NativeSelect';
+import InputBase from '@mui/material/InputBase';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import SendIcon from '@mui/icons-material/Send';
+
 
 import UpdateIcon from '@mui/icons-material/Update';
 import CancelIcon from '@mui/icons-material/Cancel';
 
 
 import { categories } from '../utils/categories';
+
+import "../css/modal.css";
 
 import { Editor, EditorState } from 'draft-js';
 import 'draft-js/dist/Draft.css';
@@ -35,43 +49,18 @@ import axios from 'axios'
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    '& .MuiDialogContent-root': {
-        padding: theme.spacing(0),
-    },
-    '& .MuiDialogActions-root': {
-        padding: theme.spacing(0),
-    },
-}));
+const COLORSCATEGORIE = ['#cb3c33', '#7633cb', '#51a8da', '#51a8da', '#51a8da', '#51a8da']
 
-const BootstrapDialogTitle = (props) => {
-    const { children, onClose, ...other } = props;
-
-    return (
-        <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
-            {children}
-            {onClose ? (
-                <IconButton
-                    aria-label="close"
-                    onClick={onClose}
-                    sx={{
-                        position: 'absolute',
-                        right: 8,
-                        top: 8,
-                        color: (theme) => theme.palette.grey[500],
-                    }}
-                >
-                    <CloseIcon />
-                </IconButton>
-            ) : null}
-        </DialogTitle>
-    );
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 1220,
+    height: 'auto',
+    bgcolor: '#1d1d1d',
 };
 
-BootstrapDialogTitle.propTypes = {
-    children: PropTypes.node,
-    onClose: PropTypes.func.isRequired,
-};
 
 const Post = (props) => {
 
@@ -125,7 +114,7 @@ const Post = (props) => {
         //         "files",
         //         images[i].file
         //     );
-            
+
         // }
 
         console.log(formData);
@@ -144,6 +133,10 @@ const Post = (props) => {
                 //handle error
                 console.log(response);
             });
+    }
+
+    const handleChange = () => {
+        console.log('test')
     }
 
 
@@ -181,14 +174,15 @@ const Post = (props) => {
                     New Post
                 </div>
                 <div className='post_photovideo' onClick={handleClickOpen}>
-                    Photo / Video
+                    Photo / Video / Text
                 </div>
-                <div className='post_onlytext' onClick={handleClickOpen}> 
+                {/* <div className='post_onlytext' onClick={handleClickOpen}>
                     Only Text
-                </div>
+                </div> */}
             </div>
             {/* MODAL COMPONENT */}
-            <BootstrapDialog
+
+            {/* <BootstrapDialog
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
                 open={open}
@@ -261,8 +255,6 @@ const Post = (props) => {
                                                     >
                                                         <CancelIcon size="large" />
                                                     </IconButton>
-                                                    {/* <Button variant="contained" color="primary" onClick={() => onImageUpdate(index)}>Update</Button>
-                                                    <Button variant="outlined" color="error" onClick={() => onImageRemove(index)}>Remove</Button> */}
                                                 </div>
                                             </div>
                                         ))}
@@ -320,14 +312,137 @@ const Post = (props) => {
                                             }}>
                                             Send
                                         </Button>
-                                        {/* <Button onClick={testImage}>test</Button> */}
                                     </Box>
                                 </div>
                             )}
                         </ImageUploading>
                     )}
                 </DialogContent>
-            </BootstrapDialog>
+            </BootstrapDialog> */}
+            <div>
+                <Modal
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    open={open}
+                    onClose={handleClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
+                    disableAutoFocus={true}
+                >
+                    <Fade in={open}>
+                        <Box sx={style} className='modal_container'>
+                            {isLoading ? (<div> test </div>) : (
+
+                                <ImageUploading
+                                    multiple
+                                    value={images}
+                                    onChange={onChange}
+                                    maxNumber={maxNumber}
+                                    dataURLKey="data_url"
+                                    acceptType={["jpg", "png"]}
+                                >
+                                    {({
+                                        imageList,
+                                        onImageUpload,
+                                        onImageRemoveAll,
+                                        onImageUpdate,
+                                        onImageRemove,
+                                        isDragging,
+                                        dragProps
+                                    }) => (
+                                        <>
+                                            <input placeholder='Give your post a title here ...' className='input_modal' onChange={props.onTitleChange} />
+                                            <textarea placeholder='write something here ...' className='textarea_modal' onChange={props.onMessageChange} value={props.message} />
+                                            <div className='categorie_display_modal'>
+                                                {categorie.map((categorie, index) => {
+
+                                                    return (
+                                                        <div className='post_categories' style={{ backgroundColor: COLORSCATEGORIE[index], color: "white" }}>
+                                                            #{categorie}
+                                                        </div>
+                                                    )
+                                                })}
+                                            </div>
+                                            <div className='bottom_modal_container'>
+                                                <div className='button_container_img'>
+                                                    <Autocomplete
+                                                        multiple
+                                                        disableCloseOnSelect
+                                                        id="tags-standard"
+                                                        onChange={(event, newValue) => {
+                                                            setCategorie(newValue)
+                                                        }}
+                                                        options={categories}
+                                                        getOptionLabel={(option) => option}
+                                                        renderOption={(props, option, { selected }) => (
+                                                            <li {...props}>
+                                                                <Checkbox
+                                                                    icon={icon}
+                                                                    checkedIcon={checkedIcon}
+                                                                    style={{ marginRight: 8 }}
+                                                                    checked={selected}
+                                                                />
+                                                                {option}
+                                                            </li>
+                                                        )}
+                                                        renderInput={(params) => (
+                                                            <div ref={params.InputProps.ref}>
+                                                                <input type="text" {...params.inputProps} placeholder='Choose a categorie ... ' className='input_modal_multiselect' />
+                                                            </div>
+                                                        )}
+
+                                                    />
+                                                    <div className='btn_upload_img' onClick={onImageUpload} {...dragProps}>
+                                                        Upload images (or not)
+                                                        <IconButton>
+                                                            <InsertPhotoIcon fontSize="large" />
+                                                        </IconButton>
+                                                    </div>
+                                                    <div style={{ display: 'flex', flexDirection: "row" }}>
+                                                        {imageList.map((image, index) => (
+                                                            <div key={index} className="image-item" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: "row" }}>
+                                                                <img src={image.data_url} alt="" width="50" />
+                                                                <div className="image-item__btn-wrapper" style={{ display: 'flex', gap: "0px", flexDirection: "row" }}>
+                                                                    <IconButton
+                                                                        aria-label="update"
+                                                                        onClick={() => onImageUpdate(index)}
+                                                                        color="primary"
+                                                                    >
+                                                                        <UpdateIcon size="large" />
+                                                                    </IconButton>
+                                                                    <IconButton
+                                                                        aria-label="remove"
+                                                                        onClick={() => onImageRemove(index)}
+                                                                        color="error"
+                                                                    >
+                                                                        <CancelIcon size="large" />
+                                                                    </IconButton>
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <button className='btn_send_modal' onClick={() => {
+                                                        setIsLoading(true)
+                                                        let booleanVar = props.sendMsg(categorie, images)
+                                                        setIsLoading(false)
+                                                        setCategorie([])
+                                                        if (booleanVar) { handleClose() }
+                                                    }}> Send <SendIcon /> </button>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+                                </ImageUploading>
+                            )}
+                        </Box>
+                    </Fade>
+                </Modal>
+            </div>
         </div>
     )
 }
