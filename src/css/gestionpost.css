@@ -1,0 +1,64 @@
+.flex_container_gestionpost {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.gestionpost_container {
+    color: white;
+    margin-top: 50px;
+    border-radius: 7px;
+    background-color: #1d1d1d;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.globalpost_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.button_delete_container {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    
+}
+
+.button_delete {
+    background-color: #7c7c7c;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    transition-duration: 0.3s;
+    transition-property: transform;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.btn_red {
+    background-color: rgb(117, 0, 0);
+}
+
+.button_delete:hover,
+.button_delete:focus,
+.button_delete:active {
+    transform: scale(1.05);
+}

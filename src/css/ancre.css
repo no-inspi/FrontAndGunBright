@@ -1,0 +1,15 @@
+#back-to-top {
+    display: none;
+    border-radius: 100px;
+    position: fixed;
+    bottom: 50px;
+    left: 50px;
+    background-color: white;
+    padding: 5px;
+    z-index: 1000;
+    /* cursor: pointer; */
+}
+
+.d-block {
+    display: block !important;
+}

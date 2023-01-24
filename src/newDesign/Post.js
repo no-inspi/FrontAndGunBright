@@ -395,6 +395,7 @@ const Post = (props) => {
                                                         )}
 
                                                     />
+                                                    you don't find your category ?
                                                     <div className='btn_upload_img' onClick={onImageUpload} {...dragProps}>
                                                         Upload images (or not)
                                                         <IconButton>

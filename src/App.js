@@ -14,6 +14,7 @@ import { Routes, Route } from "react-router-dom";
 // ADMIN
 import AdminHome from './newDesign/AdminPanel/AdminHome';
 import AdminLogin from './newDesign/AdminPanel/AdminLogin';
+import GestionPost from './newDesign/AdminPanel/GestionPost';
 
 //Test
 import ImageUploader from './newDesign/ImageUploader';
@@ -41,6 +42,7 @@ function App() {
         <Route path="/admin" element={<AdminHome alert={alert}/>}/>
         <Route path="/admin/login" element={<AdminLogin alert={alert}/>}/>
         <Route path="/admin/test" element={<ImageUploader alert={alert}/>}/>
+        <Route path="/admin/gestionpost" element={<GestionPost alert={alert}/>}/>
         <Route path="/user/mypost" element={<MyPost alert={alert}/>}/>
       </Routes>
     </div>

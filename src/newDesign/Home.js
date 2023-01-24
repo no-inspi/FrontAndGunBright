@@ -13,6 +13,7 @@ import Posts from './Posts';
 import CategorieV2 from './CategorieV2';
 import LatestNews from './LatestNews';
 import useIntersection from '../utils/useIntersection';
+import Ancre from './Ancre';
 
 // icons
 import { FaBeer, FaEthereum, FaBitcoin, FaLeaf, FaFire } from 'react-icons/fa';
@@ -299,6 +300,7 @@ const Home = () => {
                 categorie={categorie}
                 setCategorie={setCategorie}
             />
+            <Ancre />
             <div>
                 <div style={{ display: "flex", flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: "20px" }}>
                     <Post
