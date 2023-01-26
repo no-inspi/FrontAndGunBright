@@ -66,7 +66,8 @@ const GestionPost = (props) => {
                                 <div>
                                     {post.img_list.length > 0 ? (
                                         <div style={{ marginTop: 15 }}>
-                                            <img src={post.img_list[0].nomimg} />
+                                            {/* <img src={require=(post.img_list[0].nomimg)}/> */}
+                                            <img src={require=('../'+post.img_list[0].nomimg)}/>
                                         </div>
                                     ) : null}
                                 </div>

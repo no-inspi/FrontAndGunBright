@@ -1,4 +1,5 @@
 import "../css/latestNews.css";
+import {useEffect, useState} from 'react';
 
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
@@ -6,6 +7,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
+import axios from 'axios';
 
 import { ArrowCircleLeft } from "@mui/icons-material";
 
@@ -27,6 +29,10 @@ function SamplePrevArrow(props) {
 }
 
 const LatestNews = () => {
+
+    const [topPost, setTopPost] = useState([]);
+    const [trendingPost, setTrendingPost] = useState([]);
+    const [newPost, setNewPost] = useState([]);
 
     function stringToColor(string) {
         let hash = 0;
@@ -75,6 +81,39 @@ const LatestNews = () => {
         pauseOnHover: true
     };
 
+    useEffect(() => {
+        const numberofrandompost = 4
+        var posts = []
+        var trendingpost = []
+        var newpost = []
+
+        axios
+            .get("http://127.0.0.1:8000/get_first_liked_post")
+            .then(response => {
+                posts = response.data
+                console.table(posts)
+                setTopPost(posts)
+            })
+        
+            axios
+            .get("http://127.0.0.1:8000/get_random_post?numberofpost="+numberofrandompost)
+            .then(response => {
+                trendingpost = response.data
+                console.table(trendingpost)
+                setTrendingPost(trendingpost)
+            })
+
+            axios
+            .get("http://127.0.0.1:8000/get_random_post?numberofpost="+numberofrandompost)
+            .then(response => {
+                newpost = response.data
+                console.table(newpost)
+                setNewPost(newpost)
+            })
+            
+        
+    }, [])
+
     return (
         <Box sx={{ position: 'fixed', width: "22%", right: "0", top: "90px", bottom: 0 }} className="news-container">
             <Box className="news_idk">
@@ -82,7 +121,14 @@ const LatestNews = () => {
                     Top
                 </Box>
                 <Slider {...settings} className="news_slider">
-                    <div>
+                    {topPost.map((post) => {
+                        return (
+                            <div>
+                                <div className="news_card">{post.title}</div>
+                            </div>
+                        )
+                    })}
+                    {/* <div>
                         <div className="news_card">Lorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elit</div>
                     </div>
                     <div>
@@ -93,7 +139,7 @@ const LatestNews = () => {
                     </div>
                     <div>
                         <div className="news_card">4</div>
-                    </div>
+                    </div> */}
                 </Slider>
                 {/* <Box className="news_slider">
                     <Box className="news_card">
@@ -109,7 +155,15 @@ const LatestNews = () => {
                     Trending
                 </Box>
                 <Slider {...settings} className="news_slider">
-                    <div>
+                {trendingPost.map((post) => {
+                        return (
+                            <div>
+                                <div className="news_card">{post.title}</div>
+                            </div>
+                        )
+                    })}
+
+                    {/* <div>
                         <div className="news_card">1</div>
                     </div>
                     <div>
@@ -120,7 +174,7 @@ const LatestNews = () => {
                     </div>
                     <div>
                         <div className="news_card">4</div>
-                    </div>
+                    </div> */}
                 </Slider>
             </Box>
             <Box className="news_idk">
@@ -128,7 +182,14 @@ const LatestNews = () => {
                     New
                 </Box>
                 <Slider {...settings} className="news_slider">
-                    <div>
+                {newPost.map((post) => {
+                        return (
+                            <div>
+                                <div className="news_card">{post.title}</div>
+                            </div>
+                        )
+                    })}
+                    {/* <div>
                         <div className="news_card">1</div>
                     </div>
                     <div>
@@ -139,7 +200,7 @@ const LatestNews = () => {
                     </div>
                     <div>
                         <div className="news_card">4</div>
-                    </div>
+                    </div> */}
                 </Slider>
             </Box>
         </Box>

@@ -61,8 +61,9 @@ class SignUp extends Component {
         const lastName = this.state.lastName;
         const email = this.state.formEmail;
         const dateobject = this.state.datejsobj;
+        console.log(dateobject)
 
-        if (usernameSignup && (passwordSignup) && confirmPasswordSignup && firstName && lastName && email && dateobject) {
+        if (usernameSignup && (passwordSignup) && confirmPasswordSignup && firstName && lastName && email) {
             if (passwordSignup == confirmPasswordSignup) {
                 axios
                     .get("http://127.0.0.1:8000/create_user?username=" + usernameSignup + "&password=" + sha256(passwordSignup).toString())

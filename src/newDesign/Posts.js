@@ -363,7 +363,8 @@ const Posts = (props) => {
 
                                     {item.img_list.length > 0 ? (
                                         <div style={{ marginTop: 15 }}>
-                                            <img src={item.img_list[0].nomimg} />
+                                            {/* <img src={require('../images/-2.png')} /> */}
+                                            <img src={require=(item.img_list[0].nomimg)}/>
                                         </div>
                                     ) : null}
                                 </div>
