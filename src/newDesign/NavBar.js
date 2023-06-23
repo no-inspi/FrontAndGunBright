@@ -137,14 +137,14 @@ class NavBar extends Component {
     render() {
         const notifications = [
             {
-                'description': 'une plus grande description de la notif numero 1 pour voir comment ca se met en forme'
+                'description': 'You have 14 likes on your post'
             },
             {
-                'description': 'une petite description de la notif numero 2'
+                'description': 'A new post about Artifical Intelligence has been posted'
             },
-            {
-                'description': 'une description de la notif numero 3'
-            }
+            // {
+            //     'description': 'une description de la notif numero 3'
+            // }
         ]
         return (
             <div className="top__header">
@@ -348,8 +348,8 @@ class NavBar extends Component {
                         Notifications
                     </div>
                     <div className='notification_div_fixed_subtitle_container'>
-                        <div className='notification_div_fixed_subtitle_nonlu'>Non lu</div>
-                        <div className='notification_div_fixed_subtitle_voirtout'>Voir tout</div>
+                        <div className='notification_div_fixed_subtitle_nonlu'>Not read</div>
+                        <div className='notification_div_fixed_subtitle_voirtout'>See all</div>
                     </div>
                     {notifications.map((notification, i) => {
                         return (

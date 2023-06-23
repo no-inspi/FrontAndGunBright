@@ -185,7 +185,7 @@ class Login extends Component {
                             <div className='loginv2_subcontainer'>
                                 <div className='loginv2_title'> 
                                     <span className='title_braight'>Braight</span>
-                                    <span className='desc_braight'>Le réseau social de l'influence anonyme</span> 
+                                    <span className='desc_braight'>Social network of anonym influence</span> 
                                 </div>
                                 <div className='loginv2_card_container'>
                                     <div className='button_container'>
