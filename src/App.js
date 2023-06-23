@@ -21,6 +21,8 @@ import ImageUploader from './newDesign/ImageUploader';
 
 //users
 import MyPost from './newDesign/myPost/MyPost';
+import LikedPost from './newDesign/myPost/LikedPost';
+import Settings from './newDesign/User/Settings';
 
 // LandingPage
 import LandingPage from './newDesign/Landing/landingPage'
@@ -44,6 +46,8 @@ function App() {
         <Route path="/admin/test" element={<ImageUploader alert={alert}/>}/>
         <Route path="/admin/gestionpost" element={<GestionPost alert={alert}/>}/>
         <Route path="/user/mypost" element={<MyPost alert={alert}/>}/>
+        <Route path="/user/likedpost" element={<LikedPost alert={alert}/>}/>
+        <Route path="/user/settings" element={<Settings alert={alert}/>}/>
       </Routes>
     </div>
     

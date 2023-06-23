@@ -1,0 +1,28 @@
+.settings_container {
+    color: white;
+    padding-bottom: 50px;
+    width: 40%;
+    /* margin-top: 100px; */
+}
+
+.input_container_settings {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 40px;
+    gap: 20px;
+}
+
+.settings_title {
+    font-size: 28px;
+}
+
+.settings_button {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.settings_button > button {
+    width: 40%;
+}

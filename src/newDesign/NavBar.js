@@ -244,7 +244,9 @@ class NavBar extends Component {
                                                     </Link>
                                                 </div>
                                                 <div className='drawer_link'>
-                                                    <FavoriteIcon /> Liked Posts
+                                                    <Link to="/user/likedpost">
+                                                        <FavoriteIcon /> Liked Posts
+                                                    </Link>
                                                 </div>
                                                 <div className='drawer_link'>
                                                     <BookmarkIcon /> Saved Posts
@@ -252,7 +254,9 @@ class NavBar extends Component {
                                             </div>
                                             <div className='drawer_settings'>
                                                 <div className='drawer_link_settings'>
+                                                <Link to="/user/settings">
                                                     <SettingsIcon /> Settings
+                                                </Link>
                                                 </div>
                                                 <div className='drawer_link_settings' onClick={this.disconnected}>
                                                     <ExitToAppIcon /> Déconnexion
