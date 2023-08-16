@@ -71,6 +71,7 @@ const Home = () => {
     const alert = useAlert()
 
     useEffect(() => {
+        console.log("https://mainapibase-trovu5k74a-ew.a.run.app")
         const el = document.querySelector(".loader-container");
         if (el) {
             el.remove();
@@ -83,7 +84,7 @@ const Home = () => {
         if (search != "") {
             var posts = []
             axios
-                .get("http://127.0.0.1:8000/get_posts_by_categorie?categorie="+search)
+                .get("https://mainapibase-trovu5k74a-ew.a.run.app"+"/get_posts_by_categorie?categorie="+search)
                 .then(response => {
                     posts = response.data
                     console.table(posts)
@@ -137,7 +138,7 @@ const Home = () => {
 
             var posts = []
             axios
-                .get("http://127.0.0.1:8000/get_posts?search=")
+                .get("https://mainapibase-trovu5k74a-ew.a.run.app"+"/get_posts?search=")
                 .then(response => {
                     posts = response.data
                     console.table(posts)
@@ -238,14 +239,14 @@ const Home = () => {
                 
                 console.log('test:', title)
                 axios
-                    .get("http://127.0.0.1:8000/create_post?id_gun=" + encryptUniqueId + "&title="+ title + "&username=" + usernameTamp + "&content=" + message + categorieStr)
+                    .get("https://mainapibase-trovu5k74a-ew.a.run.app"+"/create_post?id_gun=" + encryptUniqueId + "&title="+ title + "&username=" + usernameTamp + "&content=" + message + categorieStr)
                     .then(response =>
                         console.log(response)
                     );
 
                     axios({
                         method: 'post',
-                        url: 'http://127.0.0.1:8000/uploadfiles/?destination=images&id_gun='+encryptUniqueId,
+                        url: "https://mainapibase-trovu5k74a-ew.a.run.app"+'/uploadfiles/?destination=images&id_gun='+encryptUniqueId,
                         data: formData,
                         headers: { 'Content-Type': 'multipart/form-data' }
                     })

@@ -84,7 +84,7 @@ class Posts extends Component {
                     currentUser.get('liked').set(post)
 
                     axios
-                        .get("http://127.0.0.1:8000/add_like?username=" + this.props.usernameTamp + "&id_gun=" + gunKey)
+                        .get("https://mainapibase-trovu5k74a-ew.a.run.app/add_like?username=" + this.props.usernameTamp + "&id_gun=" + gunKey)
                         .then(response =>
                             console.log(response)
                         );
@@ -94,7 +94,7 @@ class Posts extends Component {
                     post.get('likes').set(currentUser)
                     currentUser.get('liked').set(post)
                     axios
-                        .get("http://127.0.0.1:8000/add_like?username=" + this.props.usernameTamp + "&id_gun=" + gunKey)
+                        .get("https://mainapibase-trovu5k74a-ew.a.run.app/add_like?username=" + this.props.usernameTamp + "&id_gun=" + gunKey)
                         .then(response =>
                             console.log(response)
                         );
@@ -104,7 +104,7 @@ class Posts extends Component {
                     post.get('likes').unset(currentUser)
                     currentUser.get('liked').unset(post)
                     axios
-                        .get("http://127.0.0.1:8000/delete_like?username=" + this.props.usernameTamp + "&id_gun=" + gunKey)
+                        .get("https://mainapibase-trovu5k74a-ew.a.run.app/delete_like?username=" + this.props.usernameTamp + "&id_gun=" + gunKey)
                         .then(response =>
                             console.log(response)
                         );
@@ -140,7 +140,7 @@ class Posts extends Component {
                     post.get('dislikes').set(currentUser)
                     currentUser.get('disliked').set(post)
                     axios
-                        .get("http://127.0.0.1:8000/add_dislike?username=" + this.props.usernameTamp + "&id_gun=" + gunKey)
+                        .get("https://mainapibase-trovu5k74a-ew.a.run.app/add_dislike?username=" + this.props.usernameTamp + "&id_gun=" + gunKey)
                         .then(response =>
                             console.log(response)
                         );
@@ -150,7 +150,7 @@ class Posts extends Component {
                     post.get('dislikes').set(currentUser)
                     currentUser.get('disliked').set(post)
                     axios
-                        .get("http://127.0.0.1:8000/add_dislike?username=" + this.props.usernameTamp + "&id_gun=" + gunKey)
+                        .get("https://mainapibase-trovu5k74a-ew.a.run.app/add_dislike?username=" + this.props.usernameTamp + "&id_gun=" + gunKey)
                         .then(response =>
                             console.log(response)
                         );
@@ -160,7 +160,7 @@ class Posts extends Component {
                     post.get('dislikes').unset(currentUser)
                     currentUser.get('disliked').unset(post)
                     axios
-                        .get("http://127.0.0.1:8000/delete_dislike?username=" + this.props.usernameTamp + "&id_gun=" + gunKey)
+                        .get("https://mainapibase-trovu5k74a-ew.a.run.app/delete_dislike?username=" + this.props.usernameTamp + "&id_gun=" + gunKey)
                         .then(response =>
                             console.log(response)
                         );
@@ -209,7 +209,7 @@ class Posts extends Component {
             sitComment.get('author').put(currentUser).get('comments').set(sitComment);
             sitComment.get('posts').put(post).get('comments').set(sitComment);
             axios
-                .get("http://127.0.0.1:8000/add_comment?username=" + this.props.usernameTamp + "&id_gun=" + encryptUniqueId + "&content=" + this.state.listStrComment[gunKey])
+                .get("https://mainapibase-trovu5k74a-ew.a.run.app/add_comment?username=" + this.props.usernameTamp + "&id_gun=" + encryptUniqueId + "&content=" + this.state.listStrComment[gunKey])
                 .then(response =>
                     console.log(response)
                 );

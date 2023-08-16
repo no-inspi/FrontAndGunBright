@@ -78,7 +78,7 @@ export default function Settings(props) {
 
     const handleSubmit = (event) => {
         axios
-            .post("http://127.0.0.1:8000/update_user?username=" + window.sessionStorage.getItem('username'), 
+            .post("https://mainapibase-trovu5k74a-ew.a.run.app/update_user?username=" + window.sessionStorage.getItem('username'), 
             {
                 "username": username != "" ? username : null,
                 "first_name": firstName != "" ? firstName : null,

@@ -121,7 +121,7 @@ const Post = (props) => {
 
         axios({
             method: 'post',
-            url: 'http://127.0.0.1:8000/uploadfiles/?destination=images',
+            url: 'https://mainapibase-trovu5k74a-ew.a.run.app/uploadfiles/?destination=images',
             data: formData,
             headers: { 'Content-Type': 'multipart/form-data' }
         })

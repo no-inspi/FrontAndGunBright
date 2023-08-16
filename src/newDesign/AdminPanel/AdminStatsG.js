@@ -65,13 +65,13 @@ const AdminStatsG = () => {
         // }
 
         axios
-            .get("http://127.0.0.1:8000/get_metrics_admin_statsG")
+            .get("https://mainapibase-trovu5k74a-ew.a.run.app/get_metrics_admin_statsG")
             .then(response => {
                 setStatsG(response.data)
             })
 
         axios
-            .get("http://127.0.0.1:8000/get_metrics_admin_last_5?number=6")
+            .get("https://mainapibase-trovu5k74a-ew.a.run.app/get_metrics_admin_last_5?number=6")
             .then(response => {
                 setLast5Post(response.data)
                 console.log(response.data)

@@ -58,7 +58,7 @@ class Login extends Component {
         if (this.state.username && this.state.password) {
             //Id : charlietest password1234567890
             axios
-                .get("http://127.0.0.1:8000/get_user_pass?username="+usernameTampSignIn+"&password="+sha256(this.state.password).toString())
+                .get("https://mainapibase-trovu5k74a-ew.a.run.app/get_user_pass?username="+usernameTampSignIn+"&password="+sha256(this.state.password).toString())
                 .then(response => {
                     console.log(response.data)
                     if (response.data.error) {
@@ -70,7 +70,7 @@ class Login extends Component {
                             console.log(response.data.username)
                             this.alert.success('User correctly connected ! Welcome ' + response.data.username + ' !')
                             window.sessionStorage.setItem("username", response.data.username)
-                            window.location = "http://localhost:3000/"
+                            window.location = "https://front-and-gun-bright.vercel.app/"
                         }
                     }
                 })

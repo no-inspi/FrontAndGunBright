@@ -88,7 +88,7 @@ const LatestNews = () => {
         var newpost = []
 
         axios
-            .get("http://127.0.0.1:8000/get_first_liked_post")
+            .get("https://mainapibase-trovu5k74a-ew.a.run.app/get_first_liked_post")
             .then(response => {
                 posts = response.data
                 console.table(posts)
@@ -96,7 +96,7 @@ const LatestNews = () => {
             })
         
             axios
-            .get("http://127.0.0.1:8000/get_random_post?numberofpost="+numberofrandompost)
+            .get("https://mainapibase-trovu5k74a-ew.a.run.app/get_random_post?numberofpost="+numberofrandompost)
             .then(response => {
                 trendingpost = response.data
                 console.table(trendingpost)
@@ -104,7 +104,7 @@ const LatestNews = () => {
             })
 
             axios
-            .get("http://127.0.0.1:8000/get_random_post?numberofpost="+numberofrandompost)
+            .get("https://mainapibase-trovu5k74a-ew.a.run.app/get_random_post?numberofpost="+numberofrandompost)
             .then(response => {
                 newpost = response.data
                 console.table(newpost)

@@ -25,7 +25,7 @@ export default function LikedPost(props) {
             setUsernameTamp(window.sessionStorage.getItem('username'));
             setconnected(true);
             axios
-                .get("http://127.0.0.1:8000/get_all_liked_post_user?user=" + window.sessionStorage.getItem('username'))
+                .get("https://mainapibase-trovu5k74a-ew.a.run.app/get_all_liked_post_user?user=" + window.sessionStorage.getItem('username'))
                 .then(response => {
                     setPostsUser(response.data)
                 })

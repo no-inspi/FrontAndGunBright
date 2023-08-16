@@ -99,7 +99,7 @@ const Posts = (props) => {
     const PostinView = (inViewBool, key, id_post) => {
         if (window.sessionStorage.getItem('username')) {
             axios
-                .get("http://127.0.0.1:8000/update_metrics_view?id_post=" + id_post + "&username=" + window.sessionStorage.getItem('username'))
+                .get("https://mainapibase-trovu5k74a-ew.a.run.app/update_metrics_view?id_post=" + id_post + "&username=" + window.sessionStorage.getItem('username'))
                 .then(response => {
                     console.log(response)
                 });
@@ -155,7 +155,7 @@ const Posts = (props) => {
                     // currentUser.get('liked').set(post)
 
                     axios
-                        .get("http://127.0.0.1:8000/add_like?username=" + props.usernameTamp + "&id_gun=" + gunKey)
+                        .get("https://mainapibase-trovu5k74a-ew.a.run.app/add_like?username=" + props.usernameTamp + "&id_gun=" + gunKey)
                         .then(response =>
                             console.log(response)
                         );
@@ -166,7 +166,7 @@ const Posts = (props) => {
                     // post.get('likes').set(currentUser)
                     // currentUser.get('liked').set(post)
                     axios
-                        .get("http://127.0.0.1:8000/add_like?username=" + props.usernameTamp + "&id_gun=" + gunKey)
+                        .get("https://mainapibase-trovu5k74a-ew.a.run.app/add_like?username=" + props.usernameTamp + "&id_gun=" + gunKey)
                         .then(response =>
                             console.log(response)
                         );
@@ -177,7 +177,7 @@ const Posts = (props) => {
                     // post.get('likes').unset(currentUser)
                     // currentUser.get('liked').unset(post)
                     axios
-                        .get("http://127.0.0.1:8000/delete_like?username=" + props.usernameTamp + "&id_gun=" + gunKey)
+                        .get("https://mainapibase-trovu5k74a-ew.a.run.app/delete_like?username=" + props.usernameTamp + "&id_gun=" + gunKey)
                         .then(response =>
                             console.log(response)
                         );
@@ -215,7 +215,7 @@ const Posts = (props) => {
                     // post.get('dislikes').set(currentUser)
                     // currentUser.get('disliked').set(post)
                     axios
-                        .get("http://127.0.0.1:8000/add_dislike?username=" + props.usernameTamp + "&id_gun=" + gunKey)
+                        .get("https://mainapibase-trovu5k74a-ew.a.run.app/add_dislike?username=" + props.usernameTamp + "&id_gun=" + gunKey)
                         .then(response =>
                             console.log(response)
                         );
@@ -226,7 +226,7 @@ const Posts = (props) => {
                     // post.get('dislikes').set(currentUser)
                     // currentUser.get('disliked').set(post)
                     axios
-                        .get("http://127.0.0.1:8000/add_dislike?username=" + props.usernameTamp + "&id_gun=" + gunKey)
+                        .get("https://mainapibase-trovu5k74a-ew.a.run.app/add_dislike?username=" + props.usernameTamp + "&id_gun=" + gunKey)
                         .then(response =>
                             console.log(response)
                         );
@@ -237,7 +237,7 @@ const Posts = (props) => {
                     // post.get('dislikes').unset(currentUser)
                     // currentUser.get('disliked').unset(post)
                     axios
-                        .get("http://127.0.0.1:8000/delete_dislike?username=" + props.usernameTamp + "&id_gun=" + gunKey)
+                        .get("https://mainapibase-trovu5k74a-ew.a.run.app/delete_dislike?username=" + props.usernameTamp + "&id_gun=" + gunKey)
                         .then(response =>
                             console.log(response)
                         );
@@ -288,7 +288,7 @@ const Posts = (props) => {
             // sitComment.get('author').put(currentUser).get('comments').set(sitComment);
             // sitComment.get('posts').put(post).get('comments').set(sitComment);
             axios
-                .get("http://127.0.0.1:8000/add_comment?username=" + props.usernameTamp + "&id_gun=" + gunKey + "&content=" + modalCom)
+                .get("https://mainapibase-trovu5k74a-ew.a.run.app/add_comment?username=" + props.usernameTamp + "&id_gun=" + gunKey + "&content=" + modalCom)
                 .then(response =>
                     console.log(response)
                 );

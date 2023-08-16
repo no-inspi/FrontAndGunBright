@@ -22,7 +22,7 @@ const GestionPost = (props) => {
 
         var posts = []
         axios
-            .get("http://127.0.0.1:8000/get_posts?search=")
+            .get("https://mainapibase-trovu5k74a-ew.a.run.app/get_posts?search=")
             .then(response => {
                 posts = response.data
                 console.table(posts)
@@ -36,7 +36,7 @@ const GestionPost = (props) => {
 
     const delete_images = (nomimg) => {
         axios
-            .get("http://127.0.0.1:8000/delete_image_by_id?nomimg="+nomimg)
+            .get("https://mainapibase-trovu5k74a-ew.a.run.app/delete_image_by_id?nomimg="+nomimg)
             .then(response => {
               console.log(response)
             })

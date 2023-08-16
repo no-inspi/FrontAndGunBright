@@ -66,7 +66,7 @@ class SignUp extends Component {
         if (usernameSignup && (passwordSignup) && confirmPasswordSignup && firstName && lastName && email) {
             if (passwordSignup == confirmPasswordSignup) {
                 axios
-                    .get("http://127.0.0.1:8000/create_user?username=" + usernameSignup + "&password=" + sha256(passwordSignup).toString())
+                    .get("https://mainapibase-trovu5k74a-ew.a.run.app/create_user?username=" + usernameSignup + "&password=" + sha256(passwordSignup).toString())
                     .then(response => {
                         // console.log(response)
                         if (response.data.error) {
@@ -78,7 +78,7 @@ class SignUp extends Component {
                                 console.log(response.data.Status)
                                 this.alert.success('User correctly created ! Welcome ' + usernameSignup + ' !')
                                 window.sessionStorage.setItem("username", usernameSignup)
-                                window.location = "http://localhost:3000/"
+                                window.location = "https://front-and-gun-bright.vercel.app/"
                             }
                         }
                     })
